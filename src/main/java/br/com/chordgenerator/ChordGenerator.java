@@ -9,7 +9,6 @@ import br.com.chordgenerator.commands.Command;
 import br.com.chordgenerator.commands.HelpCommand;
 import br.com.chordgenerator.commands.factory.CommandFactory;
 import br.com.chordgenerator.facade.ChordGeneratorFacade;
-import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.logger.Logger;
 
 public class ChordGenerator {
@@ -17,10 +16,7 @@ public class ChordGenerator {
 	public static void main(String[] args) {
 
 		Logger.debug(ChordGenerator.class, "Initializing Chord Generator application...");
-		// new ChordGenerator().processArgs(args);
-
-		Note newNote = Note.A.getRespectiveNote(4);
-		System.out.println(newNote.getRepresentation());
+		new ChordGenerator().processArgs(args);
 	}
 
 	private void processArgs(String[] args) {

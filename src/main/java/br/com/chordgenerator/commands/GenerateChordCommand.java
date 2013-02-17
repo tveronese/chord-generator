@@ -5,7 +5,7 @@ import java.util.Arrays;
 import br.com.chordgenerator.facade.ChordGeneratorFacade;
 import br.com.chordgenerator.logger.Logger;
 
-public class GenerateNotationCommand extends Command {
+public class GenerateChordCommand extends Command {
 
 	@Override
 	public String getArgument() {
