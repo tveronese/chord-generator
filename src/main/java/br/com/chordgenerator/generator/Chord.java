@@ -1,6 +1,6 @@
 package br.com.chordgenerator.generator;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Chord {
@@ -9,11 +9,12 @@ public class Chord {
 
 	public Chord(Note... notes) {
 
-		this.notes = new ArrayList<>();
+		this.notes = Arrays.asList(notes);
+	}
 
-		for (Note note : notes) {
-			this.notes.add(note);
-		}
+	public void addNote(Note note) {
+
+		this.notes.add(note);
 	}
 
 	public List<Note> getNotes() {

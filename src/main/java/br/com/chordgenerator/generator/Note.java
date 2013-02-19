@@ -38,10 +38,10 @@ public enum Note {
 		return representation;
 	}
 
-	public Note getRespectiveNote(int halfToneOffset) {
+	public Note getRespectiveNote(int semitonesOffset) {
 
 		Note[] values = Note.values();
-		int newNotePosition = (this.ordinal() + halfToneOffset) % values.length;
+		int newNotePosition = (this.ordinal() + semitonesOffset) % values.length;
 		return values[newNotePosition];
 	}
 }

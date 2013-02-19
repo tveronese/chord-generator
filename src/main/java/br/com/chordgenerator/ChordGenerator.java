@@ -9,6 +9,8 @@ import br.com.chordgenerator.commands.Command;
 import br.com.chordgenerator.commands.HelpCommand;
 import br.com.chordgenerator.commands.factory.CommandFactory;
 import br.com.chordgenerator.facade.ChordGeneratorFacade;
+import br.com.chordgenerator.generator.instruments.AcousticGuitar;
+import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
 import br.com.chordgenerator.logger.Logger;
 
 public class ChordGenerator {
@@ -16,7 +18,11 @@ public class ChordGenerator {
 	public static void main(String[] args) {
 
 		Logger.debug(ChordGenerator.class, "Initializing Chord Generator application...");
-		new ChordGenerator().processArgs(args);
+
+		FFSNotation ffsn = new ChordGeneratorFacade().generateChordPositionalNotation(new AcousticGuitar(), "A");
+		System.out.println(ffsn);
+
+		// new ChordGenerator().processArgs(args);
 	}
 
 	private void processArgs(String[] args) {
