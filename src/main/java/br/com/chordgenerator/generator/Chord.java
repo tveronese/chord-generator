@@ -12,6 +12,11 @@ public class Chord {
 		this.notes = Arrays.asList(notes);
 	}
 
+	public Chord(List<Note> notes) {
+
+		this.notes = notes;
+	}
+
 	public void addNote(Note note) {
 
 		this.notes.add(note);
