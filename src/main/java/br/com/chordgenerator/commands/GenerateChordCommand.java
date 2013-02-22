@@ -1,8 +1,8 @@
 package br.com.chordgenerator.commands;
 
-import java.util.Arrays;
-
 import br.com.chordgenerator.facade.ChordGeneratorFacade;
+import br.com.chordgenerator.generator.instruments.AcousticGuitar;
+import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
 import br.com.chordgenerator.logger.Logger;
 
 public class GenerateChordCommand extends Command {
@@ -28,10 +28,16 @@ public class GenerateChordCommand extends Command {
 	@Override
 	public void execute(ChordGeneratorFacade facade) {
 
-		Logger.debug(this, "Generating chord notation.");
-		System.out.println(Arrays.toString(getArguments()));
+		String chord = getArguments()[0];
 
-		// TODO Auto-generated method stub
+		Logger.debug(this, "Generating chord \"%s\" positional notation.", chord);
+
+		FFSNotation ffsn = facade.generateChordPositionalNotation(new AcousticGuitar(), chord);
+
+		System.out.format("Generated positional notation for chord \"%s\":\n", chord);
+		System.out.print(ffsn);
+
+		Logger.debug(this, "Generating chord notation.");
 	}
 
 }
