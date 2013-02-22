@@ -1,6 +1,6 @@
 package br.com.chordgenerator.generator.notation;
 
-import br.com.chordgenerator.generator.Chord;
+import br.com.chordgenerator.generator.chords.Chord;
 
 public abstract class PositionalNotation {
 

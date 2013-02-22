@@ -3,7 +3,7 @@ package br.com.chordgenerator.generator.notation.ffs;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.chordgenerator.generator.Chord;
+import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class FFSNotation extends PositionalNotation {

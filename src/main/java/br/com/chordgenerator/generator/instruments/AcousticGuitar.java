@@ -3,8 +3,8 @@ package br.com.chordgenerator.generator.instruments;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.chordgenerator.generator.Chord;
 import br.com.chordgenerator.generator.Note;
+import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
 import br.com.chordgenerator.generator.notation.ffs.Finger;
 import br.com.chordgenerator.generator.notation.ffs.FingerFretString;

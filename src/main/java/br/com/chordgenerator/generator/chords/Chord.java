@@ -1,15 +1,21 @@
-package br.com.chordgenerator.generator;
+package br.com.chordgenerator.generator.chords;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Chord {
+import br.com.chordgenerator.generator.Note;
+
+public abstract class Chord {
+
+	protected static final Integer tone = 2;
+
+	protected static final Integer semitone = 1;
 
 	private List<Note> notes;
 
-	public Chord(Note... notes) {
+	public Chord() {
 
-		this.notes = Arrays.asList(notes);
+		this.notes = new ArrayList<>();
 	}
 
 	public Chord(List<Note> notes) {
