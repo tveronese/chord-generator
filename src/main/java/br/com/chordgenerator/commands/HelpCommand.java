@@ -1,7 +1,6 @@
 package br.com.chordgenerator.commands;
 
 import br.com.chordgenerator.commands.factory.CommandFactory;
-import br.com.chordgenerator.facade.ChordGeneratorFacade;
 
 public class HelpCommand extends Command {
 
@@ -24,7 +23,7 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public void execute(ChordGeneratorFacade facade) {
+	public void execute() {
 
 		System.out.println("Chord generator help:");
 

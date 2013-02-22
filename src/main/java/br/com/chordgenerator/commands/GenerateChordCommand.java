@@ -26,13 +26,13 @@ public class GenerateChordCommand extends Command {
 	}
 
 	@Override
-	public void execute(ChordGeneratorFacade facade) {
+	public void execute() {
 
 		String chord = getArguments()[0];
 
 		Logger.debug(this, "Generating chord \"%s\" positional notation.", chord);
 
-		FFSNotation ffsn = facade.generateChordPositionalNotation(new AcousticGuitar(), chord);
+		FFSNotation ffsn = ChordGeneratorFacade.generateChordPositionalNotation(new AcousticGuitar(), chord);
 
 		System.out.format("Generated positional notation for chord \"%s\":\n", chord);
 		System.out.print(ffsn);

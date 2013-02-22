@@ -6,22 +6,15 @@ import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
 
 public class ChordGeneratorFacade {
 
-	private Generator generator;
-
-	public ChordGeneratorFacade() {
-
-		this.generator = new Generator();
-	}
-
 	/**
 	 * Generate positional notation for the input chord.
 	 * 
 	 * @param chord The chord to generate the notation.
 	 * @return The positional notation.
 	 */
-	public FFSNotation generateChordPositionalNotation(Instrument instrument, String chord) {
+	public static FFSNotation generateChordPositionalNotation(Instrument instrument, String chord) {
 
-		return this.generator.getFFSNotation(instrument, chord);
+		return Generator.getFFSNotation(instrument, chord);
 	}
 
 }

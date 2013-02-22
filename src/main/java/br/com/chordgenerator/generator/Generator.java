@@ -1,5 +1,7 @@
 package br.com.chordgenerator.generator;
 
+import static java.lang.String.format;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,6 +10,7 @@ import br.com.chordgenerator.generator.chords.MajorChord;
 import br.com.chordgenerator.generator.chords.MinorChord;
 import br.com.chordgenerator.generator.instruments.Instrument;
 import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
+import br.com.chordgenerator.logger.Logger;
 
 public class Generator {
 
@@ -15,7 +18,7 @@ public class Generator {
 
 	private static final String MINOR_CHORD_MODIFIER = "m";
 
-	public FFSNotation getFFSNotation(Instrument instrument, String noteString) {
+	public static FFSNotation getFFSNotation(Instrument instrument, String noteString) {
 
 		Matcher matcher = NOTE_PATTERN.matcher(noteString);
 		if (!matcher.matches()) {
@@ -25,25 +28,27 @@ public class Generator {
 		Note note = Note.valueOf(matcher.group(1));
 		String modifiers = matcher.group(2);
 
-		Chord chord = this.generateChord(note, modifiers);
+		Chord chord = generateChord(note, modifiers);
 		FFSNotation ffs = instrument.generatePositionalNotation(chord);
 
 		return ffs;
 	}
 
-	private Chord generateChord(Note firstNote, String modifiers) {
+	private static Chord generateChord(Note firstNote, String modifiers) {
 
-		Chord chord;
+		if (modifiers == null) {
+
+			return new MajorChord(firstNote);
+		}
+
 		if (modifiers.equals(MINOR_CHORD_MODIFIER)) {
-
-			chord = new MinorChord(firstNote);
-		}
-		else {
-
-			chord = new MajorChord(firstNote);
+			return new MinorChord(firstNote);
 		}
 
-		return chord;
+		String msg = format("No chord generator implemented for: Note = %s; Modifiers = %s.", firstNote.name(), modifiers);
+		IllegalStateException e = new IllegalStateException(msg);
+		Logger.error(Generator.class, e, msg);
+		throw e;
 	}
 
 }
