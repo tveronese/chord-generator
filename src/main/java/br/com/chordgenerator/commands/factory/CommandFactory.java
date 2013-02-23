@@ -6,6 +6,7 @@ import java.util.List;
 
 import br.com.chordgenerator.commands.Command;
 import br.com.chordgenerator.commands.GenerateChordCommand;
+import br.com.chordgenerator.commands.GenerateChordImageCommand;
 import br.com.chordgenerator.commands.HelpCommand;
 import br.com.chordgenerator.logger.Logger;
 
@@ -21,6 +22,7 @@ public class CommandFactory {
 			cmdsList.add(HelpCommand.class.newInstance());
 			// cmdsList.add(SpecifyInstrumentCommand.class.newInstance());
 			cmdsList.add(GenerateChordCommand.class.newInstance());
+			cmdsList.add(GenerateChordImageCommand.class.newInstance());
 		}
 		catch (InstantiationException | IllegalAccessException e) {
 			Logger.error(CommandFactory.class, e, "Error while inserting commands.");

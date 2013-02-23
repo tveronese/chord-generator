@@ -3,11 +3,24 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>br.com.androidchordgenerator</groupId>
-	<artifactId>androidchordgenerator</artifactId>
+	<groupId>br.com.chordgenerator</groupId>
+	<artifactId>chord-generator</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
+		<!-- Batik -->
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-svggen</artifactId>
+			<version>1.6-1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>batik</groupId>
+			<artifactId>batik-swing</artifactId>
+			<version>1.6-1</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- Log4J -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -20,7 +33,7 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
-			<scope>compile</scope>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 

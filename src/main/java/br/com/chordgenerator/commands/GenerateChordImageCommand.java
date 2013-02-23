@@ -3,21 +3,20 @@ package br.com.chordgenerator.commands;
 import br.com.chordgenerator.facade.ChordGeneratorFacade;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.StringInstrument;
-import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.logger.Logger;
 
-public class GenerateChordCommand extends Command {
+public class GenerateChordImageCommand extends Command {
 
 	@Override
 	public String getArgument() {
 
-		return "c";
+		return "ci";
 	}
 
 	@Override
 	public String getHelpString() {
 
-		return "-c <chord>	Obtain notation for the specified chord.";
+		return "-ci <chord>	Generate the positional notation image for the specified chord.";
 	}
 
 	@Override
@@ -31,19 +30,18 @@ public class GenerateChordCommand extends Command {
 
 		String chord = getArguments()[0];
 
-		Logger.debug(this, "Generating chord \"%s\" positional notation.", chord);
+		Logger.debug(this, "Generating chord \"%s\" positional notation image.", chord);
 
 		try {
-			PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), chord);
-			System.out.format("Generated positional notation for chord \"%s\":\n", chord);
-			System.out.print(pn);
+			ChordGeneratorFacade.generateChordPositionalNotationImage(new StringInstrument(), chord);
+			System.out.format("Generated positional notation image for chord \"%s\":\n", chord);
 		}
 		catch (ChordGenerationException e) {
 			System.out.println(e.getMessage());
-			Logger.error(this, e, "Error generating chord.");
+			Logger.error(this, e, "Error generating chord image.");
 		}
 
-		Logger.debug(this, "Chord notation generation ended.");
+		Logger.debug(this, "Chord notation image generation ended.");
 	}
 
 }

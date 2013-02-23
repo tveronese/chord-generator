@@ -10,7 +10,9 @@ import org.junit.Test;
 import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.chords.MajorChord;
-import br.com.chordgenerator.generator.instruments.AcousticGuitar;
+import br.com.chordgenerator.generator.exception.ChordGenerationException;
+import br.com.chordgenerator.generator.instruments.StringInstrument;
+import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
 import br.com.chordgenerator.generator.notation.ffs.Finger;
 import br.com.chordgenerator.generator.notation.ffs.FingerFretString;
@@ -18,7 +20,7 @@ import br.com.chordgenerator.generator.notation.ffs.FingerFretString;
 public class ChordGeneratorFacadeTest {
 
 	@Test
-	public void testGenerateChordA() {
+	public void testGenerateChordA() throws ChordGenerationException {
 
 		// A
 		// Build model positional notation
@@ -32,13 +34,13 @@ public class ChordGeneratorFacadeTest {
 		modelPn.setPositions(positions);
 
 		// Call application method for positional notation generation
-		FFSNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new AcousticGuitar(), "A");
+		PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), "A");
 
 		assertEquals(modelPn, pn);
 	}
 
 	@Test
-	public void testGenerateChordC() {
+	public void testGenerateChordC() throws ChordGenerationException {
 
 		// C
 		// Build model positional notation
@@ -52,13 +54,13 @@ public class ChordGeneratorFacadeTest {
 		modelPn.setPositions(positions);
 
 		// Call application method for positional notation generation
-		FFSNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new AcousticGuitar(), "C");
+		PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), "C");
 
 		assertEquals(modelPn, pn);
 	}
 
 	@Test
-	public void testGenerateChordE() {
+	public void testGenerateChordE() throws ChordGenerationException {
 
 		// E
 		// Build model positional notation
@@ -72,13 +74,13 @@ public class ChordGeneratorFacadeTest {
 		modelPn.setPositions(positions);
 
 		// Call application method for positional notation generation
-		FFSNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new AcousticGuitar(), "E");
+		PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), "E");
 
 		assertEquals(modelPn, pn);
 	}
 
 	@Test
-	public void testGenerateChordAm() {
+	public void testGenerateChordAm() throws ChordGenerationException {
 
 		// Am
 		// Build model positional notation
@@ -92,13 +94,13 @@ public class ChordGeneratorFacadeTest {
 		modelPn.setPositions(positions);
 
 		// Call application method for positional notation generation
-		FFSNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new AcousticGuitar(), "Am");
+		PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), "Am");
 
 		assertEquals(modelPn, pn);
 	}
 
 	@Test
-	public void testGenerateChordEm() {
+	public void testGenerateChordEm() throws ChordGenerationException {
 
 		// Em
 		// Build model positional notation
@@ -111,7 +113,7 @@ public class ChordGeneratorFacadeTest {
 		modelPn.setPositions(positions);
 
 		// Call application method for positional notation generation
-		FFSNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new AcousticGuitar(), "Em");
+		PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), "Em");
 
 		assertEquals(modelPn, pn);
 	}

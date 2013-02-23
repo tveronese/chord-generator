@@ -1,12 +1,14 @@
 package br.com.chordgenerator.generator.instruments;
 
 import br.com.chordgenerator.generator.chords.Chord;
-import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
+import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public interface Instrument {
 
 	String getType();
 
-	FFSNotation generatePositionalNotation(Chord chord);
+	PositionalNotation generatePositionalNotation(Chord chord);
+
+	void generatePositionalNotationImage(PositionalNotation pn);
 
 }
