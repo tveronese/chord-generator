@@ -2,7 +2,6 @@ package br.com.chordgenerator.commands;
 
 import java.util.Arrays;
 
-import br.com.chordgenerator.facade.ChordGeneratorFacade;
 import br.com.chordgenerator.logger.Logger;
 
 public class SpecifyInstrumentCommand extends Command {
@@ -26,7 +25,7 @@ public class SpecifyInstrumentCommand extends Command {
 	}
 
 	@Override
-	public void execute(ChordGeneratorFacade facade) {
+	public void execute() {
 
 		Logger.debug(this, "Specifying instrument.");
 		System.out.println(Arrays.toString(getArguments()));

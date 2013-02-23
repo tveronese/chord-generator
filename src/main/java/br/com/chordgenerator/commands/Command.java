@@ -1,6 +1,5 @@
 package br.com.chordgenerator.commands;
 
-import br.com.chordgenerator.facade.ChordGeneratorFacade;
 
 public abstract class Command {
 
@@ -12,7 +11,7 @@ public abstract class Command {
 
 	public abstract int getNumberOfArgs();
 
-	public abstract void execute(ChordGeneratorFacade facade);
+	public abstract void execute();
 
 	public String[] getArguments() {
 

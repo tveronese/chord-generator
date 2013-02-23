@@ -1,39 +1,54 @@
 package br.com.chordgenerator.generator;
 
+import static java.lang.String.format;
+
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import br.com.chordgenerator.generator.chords.Chord;
+import br.com.chordgenerator.generator.chords.MajorChord;
+import br.com.chordgenerator.generator.chords.MinorChord;
 import br.com.chordgenerator.generator.instruments.Instrument;
 import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
+import br.com.chordgenerator.logger.Logger;
 
 public class Generator {
 
-	private static final Integer tone = 2;
+	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G])(m)?");
 
-	private static final Integer semitone = 1;
+	private static final String MINOR_CHORD_MODIFIER = "m";
 
-	public FFSNotation getFFSNotation(Instrument instrument, String sChord) {
+	public static FFSNotation getFFSNotation(Instrument instrument, String noteString) {
 
-		if (!validateChord(sChord)) {
+		Matcher matcher = NOTE_PATTERN.matcher(noteString);
+		if (!matcher.matches()) {
 			return null;
 		}
 
-		Chord chord = generateChord(Note.valueOf(sChord));
+		Note note = Note.valueOf(matcher.group(1));
+		String modifiers = matcher.group(2);
+
+		Chord chord = generateChord(note, modifiers);
 		FFSNotation ffs = instrument.generatePositionalNotation(chord);
+
 		return ffs;
 	}
 
-	private boolean validateChord(String chord) {
+	private static Chord generateChord(Note firstNote, String modifiers) {
 
-		return Pattern.matches("[A-G]", chord);
-	}
+		if (modifiers == null) {
 
-	private Chord generateChord(Note note) {
+			return new MajorChord(firstNote);
+		}
 
-		// TODO Currently only generates major chords, improve to generate minor ones
+		if (modifiers.equals(MINOR_CHORD_MODIFIER)) {
+			return new MinorChord(firstNote);
+		}
 
-		Note secondNote = note.getRespectiveNote(2 * tone);
-		Note thirdNote = secondNote.getRespectiveNote(tone + semitone);
-		return new Chord(note, secondNote, thirdNote);
+		String msg = format("No chord generator implemented for: Note = %s; Modifiers = %s.", firstNote.name(), modifiers);
+		IllegalStateException e = new IllegalStateException(msg);
+		Logger.error(Generator.class, e, msg);
+		throw e;
 	}
 
 }

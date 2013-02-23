@@ -8,7 +8,6 @@ import java.util.List;
 import br.com.chordgenerator.commands.Command;
 import br.com.chordgenerator.commands.HelpCommand;
 import br.com.chordgenerator.commands.factory.CommandFactory;
-import br.com.chordgenerator.facade.ChordGeneratorFacade;
 import br.com.chordgenerator.logger.Logger;
 
 public class ChordGenerator {
@@ -26,7 +25,7 @@ public class ChordGenerator {
 
 		if (args.length == 0) {
 			Logger.debug(this, "No arguments were provided. Showing help.");
-			new HelpCommand().execute(null);
+			new HelpCommand().execute();
 			System.exit(0);
 		}
 
@@ -35,7 +34,7 @@ public class ChordGenerator {
 
 		// Run commands
 		for (Command command : commands) {
-			command.execute(new ChordGeneratorFacade());
+			command.execute();
 		}
 	}
 }
