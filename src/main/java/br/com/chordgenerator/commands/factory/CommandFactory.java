@@ -15,21 +15,24 @@ public class CommandFactory {
 
 	static {
 
-		cmdsList = new ArrayList<>();
+		cmdsList = new ArrayList<Command>();
 		try {
 			// Add commands to list according to their demanded order
 			cmdsList.add(HelpCommand.class.newInstance());
 			// cmdsList.add(SpecifyInstrumentCommand.class.newInstance());
 			cmdsList.add(GenerateChordCommand.class.newInstance());
 		}
-		catch (InstantiationException | IllegalAccessException e) {
+		catch (InstantiationException e) {
+			Logger.error(CommandFactory.class, e, "Error while inserting commands.");
+		}
+		catch (IllegalAccessException e) {
 			Logger.error(CommandFactory.class, e, "Error while inserting commands.");
 		}
 	}
 
 	public List<Command> getCommands(String[] args) {
 
-		List<Command> commands = new ArrayList<>();
+		List<Command> commands = new ArrayList<Command>();
 		for (int i = 0; i < args.length; i++) {
 
 			String arg = args[i];

@@ -13,7 +13,7 @@ public class FFSNotation extends PositionalNotation {
 	public FFSNotation(Chord chord) {
 
 		super(chord);
-		this.positions = new ArrayList<>();
+		this.positions = new ArrayList<FingerFretString>();
 	}
 
 	public List<FingerFretString> getPositions() {

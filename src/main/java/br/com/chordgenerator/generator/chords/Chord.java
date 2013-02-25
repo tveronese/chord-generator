@@ -15,7 +15,7 @@ public abstract class Chord {
 
 	public Chord() {
 
-		this.notes = new ArrayList<>();
+		this.notes = new ArrayList<Note>();
 	}
 
 	public Chord(List<Note> notes) {
