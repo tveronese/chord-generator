@@ -20,17 +20,4 @@ public class ChordGeneratorFacade {
 		return GeneratorService.getPositionalNotation(instrument, chord);
 	}
 
-	/**
-	 * TODO
-	 * 
-	 * @param instrument
-	 * @param chord
-	 * @throws ChordGenerationException
-	 */
-	public static void generateChordPositionalNotationImage(Instrument instrument, String chord)
-			throws ChordGenerationException {
-
-		GeneratorService.getPositionalNotationImage(instrument, chord);
-	}
-
 }

@@ -9,6 +9,4 @@ public interface Instrument {
 
 	PositionalNotation generatePositionalNotation(Chord chord);
 
-	void generatePositionalNotationImage(PositionalNotation pn);
-
 }

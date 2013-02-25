@@ -47,11 +47,4 @@ public class GeneratorService {
 		return instrument.generatePositionalNotation(chord);
 	}
 
-	public static void getPositionalNotationImage(Instrument instrument, String chordString)
-			throws ChordGenerationException {
-
-		PositionalNotation pn = getPositionalNotation(instrument, chordString);
-		instrument.generatePositionalNotationImage(pn);
-	}
-
 }
