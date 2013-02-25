@@ -22,7 +22,7 @@ public class ChordGeneratorFacadeTest {
 
 		// A
 		// Build model positional notation
-		List<FingerFretString> positions = new ArrayList<>();
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
 		positions.add(new FingerFretString(Finger.ONE, 2, 1));
 		positions.add(new FingerFretString(Finger.ONE, 2, 2));
 		positions.add(new FingerFretString(Finger.ONE, 2, 3));
@@ -42,7 +42,7 @@ public class ChordGeneratorFacadeTest {
 
 		// C
 		// Build model positional notation
-		List<FingerFretString> positions = new ArrayList<>();
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
 		positions.add(new FingerFretString(Finger.ONE, 1, 1));
 		positions.add(new FingerFretString(Finger.ONE, 2, 3));
 		positions.add(new FingerFretString(Finger.ONE, 3, 4));
@@ -62,7 +62,7 @@ public class ChordGeneratorFacadeTest {
 
 		// E
 		// Build model positional notation
-		List<FingerFretString> positions = new ArrayList<>();
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
 		positions.add(new FingerFretString(Finger.ONE, 1, 2));
 		positions.add(new FingerFretString(Finger.ONE, 2, 3));
 		positions.add(new FingerFretString(Finger.ONE, 2, 4));
@@ -82,7 +82,7 @@ public class ChordGeneratorFacadeTest {
 
 		// Am
 		// Build model positional notation
-		List<FingerFretString> positions = new ArrayList<>();
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
 		positions.add(new FingerFretString(Finger.ONE, 1, 1));
 		positions.add(new FingerFretString(Finger.ONE, 2, 2));
 		positions.add(new FingerFretString(Finger.ONE, 2, 3));
@@ -102,7 +102,7 @@ public class ChordGeneratorFacadeTest {
 
 		// Em
 		// Build model positional notation
-		List<FingerFretString> positions = new ArrayList<>();
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
 		positions.add(new FingerFretString(Finger.ONE, 2, 3));
 		positions.add(new FingerFretString(Finger.ONE, 2, 4));
 

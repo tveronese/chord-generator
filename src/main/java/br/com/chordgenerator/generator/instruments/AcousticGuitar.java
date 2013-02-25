@@ -15,7 +15,7 @@ public class AcousticGuitar implements Instrument {
 
 	public AcousticGuitar() {
 
-		this.strings = new ArrayList<>();
+		this.strings = new ArrayList<Note>();
 
 		this.strings.add(Note.E);
 		this.strings.add(Note.B);
@@ -35,7 +35,7 @@ public class AcousticGuitar implements Instrument {
 	@Override
 	public FFSNotation generatePositionalNotation(Chord chord) {
 
-		List<FingerFretString> positions = new ArrayList<>();
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
 
 		for (int string = 0; string < this.strings.size(); string++) {
 
