@@ -1,10 +1,6 @@
 package br.com.chordgenerator.generator.notation.ffs;
 
-public class FingerFretString {
-
-	private Finger finger;
-
-	private Integer fret;
+public class FingerFretString extends FingerFretPosition {
 
 	private Integer string;
 
@@ -13,31 +9,10 @@ public class FingerFretString {
 		this(null, null, null);
 	}
 
-	public FingerFretString(Finger finger, Integer fret, Integer string) {
+	public FingerFretString(Integer finger, Integer fret, Integer string) {
 
-		this.finger = finger;
-		this.fret = fret;
+		super(finger, fret);
 		this.string = string;
-	}
-
-	public Finger getFinger() {
-
-		return finger;
-	}
-
-	public void setFinger(Finger finger) {
-
-		this.finger = finger;
-	}
-
-	public Integer getFret() {
-
-		return fret;
-	}
-
-	public void setFret(Integer fret) {
-
-		this.fret = fret;
 	}
 
 	public Integer getString() {
@@ -53,16 +28,14 @@ public class FingerFretString {
 	@Override
 	public String toString() {
 
-		return String.format("Finger: %s; Fret: %d; String: %d", finger.name(), fret, string + 1);
+		return String.format("Finger: %d; Fret: %d; String: %d", getFinger(), getFret(), getString() + 1);
 	}
 
 	@Override
 	public int hashCode() {
 
 		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((finger == null) ? 0 : finger.hashCode());
-		result = prime * result + ((fret == null) ? 0 : fret.hashCode());
+		int result = super.hashCode();
 		result = prime * result + ((string == null) ? 0 : string.hashCode());
 		return result;
 	}
@@ -73,24 +46,13 @@ public class FingerFretString {
 		if (this == obj) {
 			return true;
 		}
-		if (obj == null) {
+		if (!super.equals(obj)) {
 			return false;
 		}
-		if (getClass() != obj.getClass()) {
+		if (!(obj instanceof FingerFretString)) {
 			return false;
 		}
 		FingerFretString other = (FingerFretString) obj;
-		if (finger != other.finger) {
-			return false;
-		}
-		if (fret == null) {
-			if (other.fret != null) {
-				return false;
-			}
-		}
-		else if (!fret.equals(other.fret)) {
-			return false;
-		}
 		if (string == null) {
 			if (other.string != null) {
 				return false;

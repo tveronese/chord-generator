@@ -8,20 +8,20 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class FFSNotation extends PositionalNotation {
 
-	private List<FingerFretString> positions;
+	private List<FingerFretPosition> positions;
 
 	public FFSNotation(Chord chord) {
 
 		super(chord);
-		this.positions = new ArrayList<FingerFretString>();
+		this.positions = new ArrayList<FingerFretPosition>();
 	}
 
-	public List<FingerFretString> getPositions() {
+	public List<FingerFretPosition> getPositions() {
 
 		return positions;
 	}
 
-	public void setPositions(List<FingerFretString> positions) {
+	public void setPositions(List<FingerFretPosition> positions) {
 
 		this.positions = positions;
 	}
@@ -30,7 +30,7 @@ public class FFSNotation extends PositionalNotation {
 	public String toString() {
 
 		StringBuilder sb = new StringBuilder();
-		for (FingerFretString ffs : getPositions()) {
+		for (FingerFretPosition ffs : getPositions()) {
 			sb.append(ffs + "\n");
 		}
 
