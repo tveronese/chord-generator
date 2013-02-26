@@ -5,8 +5,6 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public interface Instrument {
 
-	String getType();
-
 	PositionalNotation generatePositionalNotation(Chord chord);
 
 }

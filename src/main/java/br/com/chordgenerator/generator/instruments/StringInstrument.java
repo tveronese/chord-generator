@@ -7,7 +7,7 @@ import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
-import br.com.chordgenerator.generator.notation.ffs.Finger;
+import br.com.chordgenerator.generator.notation.ffs.FingerFretPosition;
 import br.com.chordgenerator.generator.notation.ffs.FingerFretString;
 
 public class StringInstrument implements Instrument {
@@ -26,16 +26,9 @@ public class StringInstrument implements Instrument {
 	}
 
 	@Override
-	public String getType() {
-
-		// TODO use an Enum...
-		return "string";
-	}
-
-	@Override
 	public PositionalNotation generatePositionalNotation(Chord chord) {
 
-		List<FingerFretString> positions = new ArrayList<FingerFretString>();
+		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
 
 		for (int string = 0; string < this.pitches.size(); string++) {
 
@@ -47,11 +40,13 @@ public class StringInstrument implements Instrument {
 				ffs.setFret(fret);
 				ffs.setString(string);
 				// TODO implement finger attribution algorithm
-				ffs.setFinger(Finger.ONE);
+				ffs.setFinger(1);
 
 				positions.add(ffs);
 			}
 		}
+
+		replacePositionsWithBarreIfNeeded(positions);
 
 		FFSNotation ffsn = new FFSNotation(chord);
 		ffsn.setPositions(positions);
@@ -70,6 +65,10 @@ public class StringInstrument implements Instrument {
 		}
 
 		return fret;
+	}
+
+	private void replacePositionsWithBarreIfNeeded(List<FingerFretPosition> positions) {
+
 	}
 
 }
