@@ -14,7 +14,7 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class GeneratorService {
 
-	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G])(m)?");
+	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G])(m?)");
 
 	private static final String MINOR_CHORD_MODIFIER = "m";
 
@@ -25,19 +25,19 @@ public class GeneratorService {
 			throw new ChordGenerationException(format("No chord generator implemented for: %s.", chordString));
 		}
 
-		Note firstNote = Note.valueOf(matcher.group(1));
+		Note root = Note.valueOf(matcher.group(1));
 		String modifiers = matcher.group(2);
 
 		if (modifiers == null) {
-			return new MajorChord(firstNote);
+			return new MajorChord(root);
 		}
 
 		if (modifiers.equals(MINOR_CHORD_MODIFIER)) {
-			return new MinorChord(firstNote);
+			return new MinorChord(root);
 		}
 
 		throw new ChordGenerationException(
-				format("Chord generator NYI for: Note = %s; Modifiers = %s.", firstNote.name(), modifiers));
+				format("Chord generator NYI for: Note = %s; Modifiers = %s.", root.name(), modifiers));
 	}
 
 	public static PositionalNotation getPositionalNotation(Instrument instrument, String chordString)

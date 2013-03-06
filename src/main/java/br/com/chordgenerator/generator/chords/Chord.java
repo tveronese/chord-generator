@@ -13,19 +13,22 @@ public abstract class Chord {
 
 	private List<Note> notes;
 
-	public Chord() {
+	public Chord(Note root, Integer... offsets) {
 
 		this.notes = new ArrayList<Note>();
+		this.notes.add(root);
+
+		Note lastNote = root;
+		for (Integer offset : offsets) {
+
+			lastNote = lastNote.getRespectiveNote(offset);
+			this.notes.add(lastNote);
+		}
 	}
 
 	public Chord(List<Note> notes) {
 
 		this.notes = notes;
-	}
-
-	public void addNote(Note note) {
-
-		this.notes.add(note);
 	}
 
 	public List<Note> getNotes() {
