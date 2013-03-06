@@ -1,4 +1,4 @@
-package br.com.chordgenerator.generator.notation.ffs;
+package br.com.chordgenerator.generator.notation.ffp;
 
 import java.util.ArrayList;
 import java.util.List;

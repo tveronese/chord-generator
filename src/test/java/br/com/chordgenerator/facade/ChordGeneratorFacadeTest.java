@@ -13,9 +13,9 @@ import br.com.chordgenerator.generator.chords.MajorChord;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.StringInstrument;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
-import br.com.chordgenerator.generator.notation.ffs.FFSNotation;
-import br.com.chordgenerator.generator.notation.ffs.FingerFretPosition;
-import br.com.chordgenerator.generator.notation.ffs.FingerFretString;
+import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
+import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
+import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
 
 public class ChordGeneratorFacadeTest {
 

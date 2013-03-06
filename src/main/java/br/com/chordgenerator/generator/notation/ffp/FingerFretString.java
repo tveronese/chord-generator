@@ -1,4 +1,4 @@
-package br.com.chordgenerator.generator.notation.ffs;
+package br.com.chordgenerator.generator.notation.ffp;
 
 public class FingerFretString extends FingerFretPosition {
 
