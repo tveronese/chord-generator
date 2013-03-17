@@ -11,18 +11,21 @@ public abstract class Chord {
 
 	protected static final Integer semitone = 1;
 
+	private Note root;
+
 	private List<Note> notes;
 
 	public Chord(Note root, Integer... offsets) {
 
+		this.root = root;
 		this.notes = new ArrayList<Note>();
 		this.notes.add(root);
 
-		Note lastNote = root;
+		Note currentNote = root;
 		for (Integer offset : offsets) {
 
-			lastNote = lastNote.getRespectiveNote(offset);
-			this.notes.add(lastNote);
+			currentNote = currentNote.getRespectiveNote(offset);
+			this.notes.add(currentNote);
 		}
 	}
 
@@ -36,9 +39,9 @@ public abstract class Chord {
 		return notes;
 	}
 
-	public void setNotes(List<Note> notes) {
+	public Note getRoot() {
 
-		this.notes = notes;
+		return root;
 	}
 
 	@Override

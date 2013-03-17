@@ -29,4 +29,14 @@ public class FingerBarreFret extends FingerFretPosition {
 		this.replaced.add(ffs);
 	}
 
+	@Override
+	public int compareTo(FingerFretPosition other) {
+
+		if (other instanceof FingerFretString) {
+			return -1;
+		}
+
+		return 1;
+	}
+
 }
