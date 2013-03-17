@@ -1,9 +1,9 @@
 package br.com.chordgenerator.facade;
 
-import br.com.chordgenerator.generator.GeneratorService;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.Instrument;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
+import br.com.chordgenerator.generator.service.GeneratorService;
 
 public class ChordGeneratorFacade {
 

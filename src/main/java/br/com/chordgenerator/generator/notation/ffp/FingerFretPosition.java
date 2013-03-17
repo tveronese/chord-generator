@@ -1,6 +1,6 @@
 package br.com.chordgenerator.generator.notation.ffp;
 
-public abstract class FingerFretPosition {
+public abstract class FingerFretPosition implements Comparable<FingerFretPosition> {
 
 	private Integer finger;
 

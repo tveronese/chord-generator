@@ -64,4 +64,19 @@ public class FingerFretString extends FingerFretPosition {
 		return true;
 	}
 
+	@Override
+	public int compareTo(FingerFretPosition other) {
+
+		if (other instanceof FingerBarreFret) {
+			return 1;
+		}
+
+		if (other instanceof FingerFretString) {
+			FingerFretString otherFFS = (FingerFretString) other;
+			return this.getString() - otherFFS.getString();
+		}
+
+		return 0;
+	}
+
 }

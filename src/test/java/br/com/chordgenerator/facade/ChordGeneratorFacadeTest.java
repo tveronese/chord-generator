@@ -2,8 +2,8 @@ package br.com.chordgenerator.facade;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class ChordGeneratorFacadeTest {
 
 		// A
 		// Build model positional notation
-		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
 		positions.add(new FingerFretString(1, 2, 1));
 		positions.add(new FingerFretString(1, 2, 2));
 		positions.add(new FingerFretString(1, 2, 3));
@@ -44,7 +44,7 @@ public class ChordGeneratorFacadeTest {
 
 		// C
 		// Build model positional notation
-		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
 		positions.add(new FingerFretString(1, 1, 1));
 		positions.add(new FingerFretString(1, 2, 3));
 		positions.add(new FingerFretString(1, 3, 4));
@@ -64,7 +64,7 @@ public class ChordGeneratorFacadeTest {
 
 		// E
 		// Build model positional notation
-		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
 		positions.add(new FingerFretString(1, 1, 2));
 		positions.add(new FingerFretString(1, 2, 3));
 		positions.add(new FingerFretString(1, 2, 4));
@@ -84,7 +84,7 @@ public class ChordGeneratorFacadeTest {
 
 		// Am
 		// Build model positional notation
-		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
 		positions.add(new FingerFretString(1, 1, 1));
 		positions.add(new FingerFretString(1, 2, 2));
 		positions.add(new FingerFretString(1, 2, 3));
@@ -104,7 +104,7 @@ public class ChordGeneratorFacadeTest {
 
 		// Em
 		// Build model positional notation
-		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
 		positions.add(new FingerFretString(1, 2, 3));
 		positions.add(new FingerFretString(1, 2, 4));
 

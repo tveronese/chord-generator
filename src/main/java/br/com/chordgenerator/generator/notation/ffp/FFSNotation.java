@@ -1,27 +1,27 @@
 package br.com.chordgenerator.generator.notation.ffp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class FFSNotation extends PositionalNotation {
 
-	private List<FingerFretPosition> positions;
+	private Set<FingerFretPosition> positions;
 
 	public FFSNotation(Chord chord) {
 
 		super(chord);
-		this.positions = new ArrayList<FingerFretPosition>();
+		this.positions = new TreeSet<FingerFretPosition>();
 	}
 
-	public List<FingerFretPosition> getPositions() {
+	public Set<FingerFretPosition> getPositions() {
 
 		return positions;
 	}
 
-	public void setPositions(List<FingerFretPosition> positions) {
+	public void setPositions(Set<FingerFretPosition> positions) {
 
 		this.positions = positions;
 	}

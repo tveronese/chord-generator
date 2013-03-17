@@ -1,17 +1,16 @@
 package br.com.chordgenerator.generator.instruments;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
-import br.com.chordgenerator.generator.notation.ffp.FingerBarreFret;
 import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
 import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
-import br.com.chordgenerator.logger.Logger;
 
 public class StringInstrument implements Instrument {
 
@@ -31,87 +30,80 @@ public class StringInstrument implements Instrument {
 	@Override
 	public PositionalNotation generatePositionalNotation(Chord chord) {
 
-		List<FingerFretPosition> positions = new ArrayList<FingerFretPosition>();
-
-		for (int string = 0; string < this.pitches.size(); string++) {
-
-			Integer fret = getFretWithNote(0, string, chord.getNotes());
-
-			FingerFretString ffs = new FingerFretString();
-			ffs.setFret(fret);
-			ffs.setString(string);
-			// TODO implement finger attribution algorithm
-			ffs.setFinger(1);
-
-			positions.add(ffs);
+		// First find FFSs for tonic note
+		int initialFret = 0;
+		Note root = chord.getRoot();
+		int lastString = this.pitches.size() - 1;
+		List<FingerFretString> tonicNoteFFSs = searchFFSForNote(root, lastString, initialFret, initialFret + 4);
+		if (tonicNoteFFSs.isEmpty()) {
+			// TODO treat
+			return null;
 		}
 
-		replacePositionsWithBarreIfNeeded(positions, chord.getNotes());
+		// TODO change to generate all positions (currently generating only for the first
+		FingerFretString tonicFFS = tonicNoteFFSs.get(0);
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
+		positions.add(tonicFFS);
+
+		int firstString = tonicFFS.getString() - 1;
+		List<Note> chordNotes = chord.getNotes();
+		if (firstString < chordNotes.size() - 1) {
+			// In fact, should remove tonicFFS from possible FFS
+			return null;
+		}
+
+		// Define current and last fret (to be changed when iterating over all frets)
+		int currentFirstFret = tonicFFS.getFret() - 4;
+		currentFirstFret = currentFirstFret < 0 ? 0 : currentFirstFret;
+		int currentLastFret = currentFirstFret + 4;
+		List<FingerFretString> ffsList = searchFFSForNotes(chordNotes, firstString, currentFirstFret, currentLastFret);
+		positions.addAll(ffsList);
 
 		FFSNotation ffsn = new FFSNotation(chord);
 		ffsn.setPositions(positions);
 		return ffsn;
 	}
 
-	private Integer getFretWithNote(Integer initialFret, Integer stringNumber, List<Note> notes) {
+	private List<FingerFretString> searchFFSForNote(Note note, int firstString, int initialFret, int finalFret) {
 
-		Note currentNote = this.pitches.get(stringNumber);
-		currentNote = currentNote.getRespectiveNote(initialFret);
-
-		while (!notes.contains(currentNote)) {
-
-			currentNote = currentNote.getRespectiveNote(1);
-			initialFret++;
-		}
-
-		return initialFret;
+		List<Note> notes = new ArrayList<Note>();
+		notes.add(note);
+		return searchFFSForNotes(notes, firstString, initialFret, finalFret);
 	}
 
-	private void replacePositionsWithBarreIfNeeded(List<FingerFretPosition> positions, List<Note> notes) {
+	private List<FingerFretString> searchFFSForNotes(List<Note> notes, int firstString, int initialFret, int finalFret) {
 
-		int fingers = 0;
-		for (FingerFretPosition ffp : positions) {
+		// Find FFS descending from first string
+		List<FingerFretString> ffsList = new ArrayList<FingerFretString>();
+		for (int currentString = firstString; currentString >= 0; currentString--) {
 
-			Integer fret = ffp.getFret();
-			if (fret != 0) {
-				fingers++;
+			FingerFretString ffs = searchStringForNote(notes, currentString, initialFret, finalFret);
+			if (ffs != null) {
+				ffsList.add(ffs);
 			}
 		}
 
-		// TODO need a better way to detect barre need
-		if (fingers < 4) {
-			return;
-		}
+		return ffsList;
+	}
 
-		Integer barreFret = positions.get(0).getFret();
-		Integer lastStringFret = positions.get(this.pitches.size() - 1).getFret();
-		if (!barreFret.equals(lastStringFret)) {
-			Logger.warn(this, "Barred fret with fret not defined from initial search?");
-			return;
-		}
+	private FingerFretString searchStringForNote(List<Note> notes, int stringNumber, int initialFret, int finalFret) {
 
-		FingerBarreFret barre = new FingerBarreFret(1, barreFret);
-		for (Iterator<FingerFretPosition> iterator = positions.iterator(); iterator.hasNext();) {
+		FingerFretString ffs = null;
 
-			FingerFretPosition ffp = iterator.next();
+		Note looseStringNote = this.pitches.get(stringNumber);
+		for (int currentFret = initialFret; currentFret <= finalFret; currentFret++) {
 
-			if (!(ffp instanceof FingerFretString)) {
-				Logger.warn(this, "Found instance different from FingerFretString while building barre fret.");
-				continue;
-			}
+			Note currentNote = looseStringNote.getRespectiveNote(currentFret);
+			if (notes.contains(currentNote)) {
 
-			FingerFretString ffs = (FingerFretString) ffp;
-			if (ffs.getFret() < barreFret) {
-				ffs.setFret(getFretWithNote(barreFret, ffs.getString(), notes));
-			}
-
-			if (ffs.getFret().equals(barreFret)) {
-				barre.addReplacedFret(ffs);
-				iterator.remove();
+				ffs = new FingerFretString();
+				ffs.setFinger(1);
+				ffs.setFret(currentFret);
+				ffs.setString(stringNumber);
 			}
 		}
 
-		positions.add(0, barre);
+		return ffs;
 	}
 
 }
