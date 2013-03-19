@@ -3,6 +3,7 @@ package br.com.chordgenerator.generator.instruments;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import br.com.chordgenerator.generator.Note;
@@ -11,6 +12,7 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
 import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
 import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
+import br.com.chordgenerator.logger.Logger;
 
 public class StringInstrument implements Instrument {
 
@@ -28,40 +30,62 @@ public class StringInstrument implements Instrument {
 	}
 
 	@Override
-	public PositionalNotation generatePositionalNotation(Chord chord) {
+	public Set<PositionalNotation> generateAllPositionalNotation(Chord chord) {
 
 		// First find FFSs for tonic note
-		int initialFret = 0;
+		List<FingerFretString> tonicNoteFFSs = findTonicFFS(chord);
+
+		SortedSet<PositionalNotation> possibleFFS = new TreeSet<PositionalNotation>();
+		for (FingerFretString tonicFFS : tonicNoteFFSs) {
+
+			List<Note> chordNotes = chord.getNotes();
+			if (tonicFFS.getString() < chordNotes.size() - 1) {
+				// Do not add tonicFFS to possible FFS
+				continue;
+			}
+
+			int firstString = tonicFFS.getString() - 1;
+			// Define current and last fret (to be changed when iterating over all frets)
+			for (int fretOffset = 3; fretOffset >= 0; fretOffset--) {
+
+				int currentFirstFret = tonicFFS.getFret() - fretOffset;
+				if (currentFirstFret < 0) {
+					fretOffset += currentFirstFret;
+					currentFirstFret = 0;
+				}
+				int currentLastFret = currentFirstFret + 3;
+
+				List<FingerFretString> ffsList = searchFFSForNotes(chordNotes, firstString, currentFirstFret, currentLastFret);
+
+				if (ffsList != null && !ffsList.isEmpty()) {
+					Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
+					positions.add(tonicFFS);
+					positions.addAll(ffsList);
+
+					FFSNotation ffsn = new FFSNotation(chord);
+					ffsn.setPositions(positions);
+					possibleFFS.add(ffsn);
+				}
+			}
+		}
+
+		return possibleFFS;
+	}
+
+	private List<FingerFretString> findTonicFFS(Chord chord) {
+
 		Note root = chord.getRoot();
 		int lastString = this.pitches.size() - 1;
-		List<FingerFretString> tonicNoteFFSs = searchFFSForNote(root, lastString, initialFret, initialFret + 4);
-		if (tonicNoteFFSs.isEmpty()) {
-			// TODO treat
-			return null;
+
+		int initialFret = 0;
+		// Starts repeating on twelfth, so, search until 11
+		int finalFret = 11;
+		List<FingerFretString> ffss = searchFFSForNote(root, lastString, initialFret, finalFret);
+		if (ffss.isEmpty()) {
+			Logger.warn(this, "Did not found any tonic FFS for frets from %d to %d.", initialFret, finalFret);
 		}
 
-		// TODO change to generate all positions (currently generating only for the first
-		FingerFretString tonicFFS = tonicNoteFFSs.get(0);
-		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
-		positions.add(tonicFFS);
-
-		int firstString = tonicFFS.getString() - 1;
-		List<Note> chordNotes = chord.getNotes();
-		if (firstString < chordNotes.size() - 1) {
-			// In fact, should remove tonicFFS from possible FFS
-			return null;
-		}
-
-		// Define current and last fret (to be changed when iterating over all frets)
-		int currentFirstFret = tonicFFS.getFret() - 4;
-		currentFirstFret = currentFirstFret < 0 ? 0 : currentFirstFret;
-		int currentLastFret = currentFirstFret + 4;
-		List<FingerFretString> ffsList = searchFFSForNotes(chordNotes, firstString, currentFirstFret, currentLastFret);
-		positions.addAll(ffsList);
-
-		FFSNotation ffsn = new FFSNotation(chord);
-		ffsn.setPositions(positions);
-		return ffsn;
+		return ffss;
 	}
 
 	private List<FingerFretString> searchFFSForNote(Note note, int firstString, int initialFret, int finalFret) {
@@ -78,9 +102,10 @@ public class StringInstrument implements Instrument {
 		for (int currentString = firstString; currentString >= 0; currentString--) {
 
 			FingerFretString ffs = searchStringForNote(notes, currentString, initialFret, finalFret);
-			if (ffs != null) {
-				ffsList.add(ffs);
+			if (ffs == null) {
+				return null;
 			}
+			ffsList.add(ffs);
 		}
 
 		return ffsList;
@@ -100,6 +125,7 @@ public class StringInstrument implements Instrument {
 				ffs.setFinger(1);
 				ffs.setFret(currentFret);
 				ffs.setString(stringNumber);
+				break;
 			}
 		}
 

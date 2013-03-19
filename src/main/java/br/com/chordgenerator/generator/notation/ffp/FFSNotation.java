@@ -70,4 +70,52 @@ public class FFSNotation extends PositionalNotation {
 		return true;
 	}
 
+	@Override
+	public int compareTo(PositionalNotation o) {
+
+		if (!(o instanceof FFSNotation)) {
+			return 1;
+		}
+
+		FFSNotation other = (FFSNotation) o;
+
+		int fretSum = 0;
+		int minFret = 100;
+		int maxFret = 0;
+		for (FingerFretPosition ffp : this.getPositions()) {
+			Integer fret = ffp.getFret();
+			fretSum += fret;
+			minFret = Math.min(minFret, fret);
+			maxFret = Math.max(maxFret, fret);
+		}
+
+		int fretSumOther = 0;
+		int minFretOther = 100;
+		int maxFretOther = 0;
+		for (FingerFretPosition ffp : other.getPositions()) {
+			Integer fret = ffp.getFret();
+			fretSumOther += fret;
+			minFretOther = Math.min(minFretOther, fret);
+			maxFretOther = Math.max(maxFretOther, fret);
+		}
+
+		if (minFret != minFretOther) {
+			return minFret - minFretOther;
+		}
+
+		int thisDistance = maxFret - minFret;
+		int otherDistance = maxFretOther - minFretOther;
+		if (thisDistance != otherDistance) {
+			return thisDistance - otherDistance;
+		}
+
+		int thisStrings = this.getPositions().size();
+		int otherStrings = other.getPositions().size();
+		if (thisStrings != otherStrings) {
+			return thisStrings - otherStrings;
+		}
+
+		return fretSum - fretSumOther;
+	}
+
 }

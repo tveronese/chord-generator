@@ -2,6 +2,7 @@ package br.com.chordgenerator.generator.service;
 
 import static java.lang.String.format;
 
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,15 +16,15 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class GeneratorService {
 
-	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G])(m?)");
+	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G]#?)(m?)");
 
 	private static final String MINOR_CHORD_MODIFIER = "m";
 
-	public static PositionalNotation getPositionalNotation(Instrument instrument, String chordString)
+	public static Set<PositionalNotation> getPositionalNotations(Instrument instrument, String chordString)
 			throws ChordGenerationException {
 
 		Chord chord = generateChord(chordString);
-		return generatePositionalNotation(instrument, chord);
+		return generateAllPositionalNotations(instrument, chord);
 	}
 
 	private static Chord generateChord(String chordString) throws ChordGenerationException {
@@ -33,7 +34,7 @@ public class GeneratorService {
 			throw new ChordGenerationException(format("No chord generator implemented for: %s.", chordString));
 		}
 
-		Note root = Note.valueOf(matcher.group(1));
+		Note root = Note.getNoteFromRepresentation(matcher.group(1));
 		String modifiers = matcher.group(2);
 
 		if (modifiers == null || modifiers.isEmpty()) {
@@ -48,9 +49,9 @@ public class GeneratorService {
 				format("Chord generator NYI for: Note = %s; Modifiers = %s.", root.name(), modifiers));
 	}
 
-	private static PositionalNotation generatePositionalNotation(Instrument instrument, Chord chord) {
+	private static Set<PositionalNotation> generateAllPositionalNotations(Instrument instrument, Chord chord) {
 
-		return instrument.generatePositionalNotation(chord);
+		return instrument.generateAllPositionalNotation(chord);
 	}
 
 }
