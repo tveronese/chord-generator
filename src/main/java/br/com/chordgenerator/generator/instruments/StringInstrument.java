@@ -38,35 +38,12 @@ public class StringInstrument implements Instrument {
 		SortedSet<PositionalNotation> possibleFFS = new TreeSet<PositionalNotation>();
 		for (FingerFretString tonicFFS : tonicNoteFFSs) {
 
-			List<Note> chordNotes = chord.getNotes();
-			if (tonicFFS.getString() < chordNotes.size() - 1) {
+			if (tonicFFS.getString() < chord.getNotes().size() - 1) {
 				// Do not add tonicFFS to possible FFS
 				continue;
 			}
 
-			int firstString = tonicFFS.getString() - 1;
-			// Define current and last fret (to be changed when iterating over all frets)
-			for (int fretOffset = 3; fretOffset >= 0; fretOffset--) {
-
-				int currentFirstFret = tonicFFS.getFret() - fretOffset;
-				if (currentFirstFret < 0) {
-					fretOffset += currentFirstFret;
-					currentFirstFret = 0;
-				}
-				int currentLastFret = currentFirstFret + 3;
-
-				List<FingerFretString> ffsList = searchFFSForNotes(chordNotes, firstString, currentFirstFret, currentLastFret);
-
-				if (ffsList != null && !ffsList.isEmpty()) {
-					Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
-					positions.add(tonicFFS);
-					positions.addAll(ffsList);
-
-					FFSNotation ffsn = new FFSNotation(chord);
-					ffsn.setPositions(positions);
-					possibleFFS.add(ffsn);
-				}
-			}
+			possibleFFS.addAll(findRemainderForTonic(chord, tonicFFS));
 		}
 
 		return possibleFFS;
@@ -86,6 +63,35 @@ public class StringInstrument implements Instrument {
 		}
 
 		return ffss;
+	}
+
+	private Set<PositionalNotation> findRemainderForTonic(Chord chord, FingerFretString tonicFFS) {
+
+		int firstString = tonicFFS.getString() - 1;
+		Set<PositionalNotation> possibleFFS = new TreeSet<PositionalNotation>();
+		for (int fretOffset = 3; fretOffset >= 0; fretOffset--) {
+
+			int currentFirstFret = tonicFFS.getFret() - fretOffset;
+			if (currentFirstFret < 0) {
+				fretOffset += currentFirstFret;
+				currentFirstFret = 0;
+			}
+			int currentLastFret = currentFirstFret + 3;
+
+			List<FingerFretString> ffsList = searchFFSForNotes(chord.getNotes(), firstString, currentFirstFret, currentLastFret);
+
+			if (ffsList != null && !ffsList.isEmpty()) {
+				Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
+				positions.add(tonicFFS);
+				positions.addAll(ffsList);
+
+				FFSNotation ffsn = new FFSNotation(chord);
+				ffsn.setPositions(positions);
+				possibleFFS.add(ffsn);
+			}
+		}
+
+		return possibleFFS;
 	}
 
 	private List<FingerFretString> searchFFSForNote(Note note, int firstString, int initialFret, int finalFret) {
