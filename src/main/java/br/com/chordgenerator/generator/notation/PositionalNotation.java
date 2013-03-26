@@ -2,7 +2,7 @@ package br.com.chordgenerator.generator.notation;
 
 import br.com.chordgenerator.generator.chords.Chord;
 
-public abstract class PositionalNotation {
+public abstract class PositionalNotation implements Comparable<PositionalNotation> {
 
 	private Chord chord;
 

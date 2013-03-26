@@ -1,9 +1,11 @@
 package br.com.chordgenerator.facade;
 
-import br.com.chordgenerator.generator.GeneratorService;
+import java.util.Set;
+
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.Instrument;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
+import br.com.chordgenerator.generator.service.GeneratorService;
 
 public class ChordGeneratorFacade {
 
@@ -14,10 +16,10 @@ public class ChordGeneratorFacade {
 	 * @return The positional notation.
 	 * @throws ChordGenerationException If an error happened while generating the chord.
 	 */
-	public static PositionalNotation generateChordPositionalNotation(Instrument instrument, String chord)
+	public static Set<PositionalNotation> generateChordPositionalNotations(Instrument instrument, String chord)
 			throws ChordGenerationException {
 
-		return GeneratorService.getPositionalNotation(instrument, chord);
+		return GeneratorService.getPositionalNotations(instrument, chord);
 	}
 
 }

@@ -4,16 +4,10 @@ import br.com.chordgenerator.generator.Note;
 
 public class MinorChord extends Chord {
 
-	public MinorChord(Note firstNote) {
+	public MinorChord(Note root) {
 
-		super();
-
-		Note secondNote = firstNote.getRespectiveNote(tone + semitone);
-		Note thirdNote = secondNote.getRespectiveNote(2 * tone);
-
-		this.getNotes().add(firstNote);
-		this.getNotes().add(secondNote);
-		this.getNotes().add(thirdNote);
+		// 1-b3-5
+		super(root, tone + semitone, 2 * tone);
 	}
 
 }

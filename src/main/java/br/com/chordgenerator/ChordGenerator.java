@@ -15,16 +15,16 @@ public class ChordGenerator {
 	public static void main(String[] args) {
 
 		Logger.debug(ChordGenerator.class, "Initializing Chord Generator application...");
-
-		new ChordGenerator().processArgs(args);
+		ChordGenerator.processArgs(args);
 	}
 
-	private void processArgs(String[] args) {
+	private static void processArgs(String[] args) {
 
-		Logger.debug(this, format("Parsing %d received arguments: %s", args.length, Arrays.toString(args)));
+		Logger.debug(ChordGenerator.class, format("Parsing %d received arguments: %s", args.length, Arrays
+				.toString(args)));
 
 		if (args.length == 0) {
-			Logger.debug(this, "No arguments were provided. Showing help.");
+			Logger.debug(ChordGenerator.class, "No arguments were provided. Showing help.");
 			new HelpCommand().execute();
 			System.exit(0);
 		}

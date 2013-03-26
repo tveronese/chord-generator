@@ -44,4 +44,15 @@ public enum Note {
 		int newNotePosition = (this.ordinal() + semitonesOffset) % values.length;
 		return values[newNotePosition];
 	}
+
+	public static Note getNoteFromRepresentation(String representation) {
+
+		for (Note note : Note.values()) {
+			if (note.getRepresentation().equals(representation)) {
+				return note;
+			}
+		}
+
+		return null;
+	}
 }
