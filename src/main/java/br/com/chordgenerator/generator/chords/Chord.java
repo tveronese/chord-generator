@@ -7,9 +7,9 @@ import br.com.chordgenerator.generator.Note;
 
 public abstract class Chord {
 
-	protected static final Integer tone = 2;
+	protected static final Integer TONE = 2;
 
-	protected static final Integer semitone = 1;
+	protected static final Integer SEMITONE = 1;
 
 	private Note root;
 

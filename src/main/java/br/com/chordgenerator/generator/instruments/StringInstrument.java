@@ -1,6 +1,7 @@
 package br.com.chordgenerator.generator.instruments;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -10,11 +11,14 @@ import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
+import br.com.chordgenerator.generator.notation.ffp.FingerBarreFret;
 import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
 import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
 import br.com.chordgenerator.logger.Logger;
 
 public class StringInstrument implements Instrument {
+
+	private static final Integer HUMAN_MAXIMUM_FINGERS = 4;
 
 	private List<Note> pitches;
 
@@ -32,13 +36,19 @@ public class StringInstrument implements Instrument {
 	@Override
 	public Set<PositionalNotation> generateAllPositionalNotations(Chord chord) {
 
-		// First find FFSs for tonic note
 		List<FingerFretString> tonicNoteFFSs = findTonicFFS(chord);
+		Set<FFSNotation> possibleFFS = findPossibleFFS(chord, tonicNoteFFSs);
+		possibleFFS = findAndConvertBarreChords(possibleFFS);
 
-		SortedSet<PositionalNotation> possibleFFS = new TreeSet<PositionalNotation>();
+		return new TreeSet<PositionalNotation>(possibleFFS);
+	}
+
+	private Set<FFSNotation> findPossibleFFS(Chord chord, List<FingerFretString> tonicNoteFFSs) {
+
+		SortedSet<FFSNotation> possibleFFS = new TreeSet<FFSNotation>();
 		for (FingerFretString tonicFFS : tonicNoteFFSs) {
 
-			if (tonicFFS.getString() < chord.getNotes().size() - 1) {
+			if (tonicFFS.getString() < chord.getNotes().size()) {
 				// Do not add tonicFFS to possible FFS
 				continue;
 			}
@@ -65,10 +75,10 @@ public class StringInstrument implements Instrument {
 		return ffss;
 	}
 
-	private Set<PositionalNotation> findRemainderForTonic(Chord chord, FingerFretString tonicFFS) {
+	private Set<FFSNotation> findRemainderForTonic(Chord chord, FingerFretString tonicFFS) {
 
 		int firstString = tonicFFS.getString() - 1;
-		Set<PositionalNotation> possibleFFS = new TreeSet<PositionalNotation>();
+		Set<FFSNotation> possibleFFS = new TreeSet<FFSNotation>();
 		for (int fretOffset = 3; fretOffset >= 0; fretOffset--) {
 
 			int currentFirstFret = tonicFFS.getFret() - fretOffset;
@@ -136,6 +146,35 @@ public class StringInstrument implements Instrument {
 		}
 
 		return ffs;
+	}
+
+	private Set<FFSNotation> findAndConvertBarreChords(Set<FFSNotation> possibleFFS) {
+
+		for (Iterator<FFSNotation> iterator = possibleFFS.iterator(); iterator.hasNext();) {
+
+			FFSNotation ffsn = iterator.next();
+
+			int fingersNeeded = ffsn.getFingersNeeded();
+			if (fingersNeeded <= HUMAN_MAXIMUM_FINGERS) {
+				continue;
+			}
+
+			int minFret = ffsn.getMinimumFret(true);
+			List<FingerFretString> barreFFPs = ffsn.getPositionsAtFret(minFret);
+
+			if (fingersNeeded - barreFFPs.size() + 1 > HUMAN_MAXIMUM_FINGERS) {
+				iterator.remove();
+				continue;
+			}
+
+			FingerBarreFret barre = new FingerBarreFret(1, minFret);
+			barre.addReplacedPositions(barreFFPs);
+
+			ffsn.getPositions().removeAll(barreFFPs);
+			ffsn.getPositions().add(barre);
+		}
+
+		return possibleFFS;
 	}
 
 }

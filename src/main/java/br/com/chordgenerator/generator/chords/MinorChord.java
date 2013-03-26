@@ -7,7 +7,7 @@ public class MinorChord extends Chord {
 	public MinorChord(Note root) {
 
 		// 1-b3-5
-		super(root, tone + semitone, 2 * tone);
+		super(root, TONE + SEMITONE, 2 * TONE);
 	}
 
 }
