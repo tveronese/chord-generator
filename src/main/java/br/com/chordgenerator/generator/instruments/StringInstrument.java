@@ -30,7 +30,7 @@ public class StringInstrument implements Instrument {
 	}
 
 	@Override
-	public Set<PositionalNotation> generateAllPositionalNotation(Chord chord) {
+	public Set<PositionalNotation> generateAllPositionalNotations(Chord chord) {
 
 		// First find FFSs for tonic note
 		List<FingerFretString> tonicNoteFFSs = findTonicFFS(chord);

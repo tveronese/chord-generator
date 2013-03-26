@@ -7,6 +7,6 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public interface Instrument {
 
-	Set<PositionalNotation> generateAllPositionalNotation(Chord chord);
+	Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
 
 }
