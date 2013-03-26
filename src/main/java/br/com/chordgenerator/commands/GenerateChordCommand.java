@@ -35,7 +35,7 @@ public class GenerateChordCommand extends Command {
 
 		try {
 			PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotation(new StringInstrument(), chord);
-			System.out.format("Generated positional notation for chord \"%s\":\n", chord);
+			System.out.format("Generated positional notation for chord \"%s\":%n", chord);
 			System.out.print(pn);
 		}
 		catch (ChordGenerationException e) {
