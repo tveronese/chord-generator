@@ -51,7 +51,7 @@ public class GeneratorService {
 
 	private static Set<PositionalNotation> generateAllPositionalNotations(Instrument instrument, Chord chord) {
 
-		return instrument.generateAllPositionalNotation(chord);
+		return instrument.generateAllPositionalNotations(chord);
 	}
 
 }

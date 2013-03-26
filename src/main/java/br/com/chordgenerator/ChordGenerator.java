@@ -15,30 +15,16 @@ public class ChordGenerator {
 	public static void main(String[] args) {
 
 		Logger.debug(ChordGenerator.class, "Initializing Chord Generator application...");
-
-		/*
-		 * List<String[]> argsList = new ArrayList<String[]>(); argsList.add(new String[] { "-c",
-		 * "A" }); argsList.add(new String[] { "-c", "Am" }); argsList.add(new String[] { "-c", "B"
-		 * }); argsList.add(new String[] { "-c", "Bm" }); argsList.add(new String[] { "-c", "C" });
-		 * argsList.add(new String[] { "-c", "Cm" }); argsList.add(new String[] { "-c", "D" });
-		 * argsList.add(new String[] { "-c", "Dm" }); argsList.add(new String[] { "-c", "E" });
-		 * argsList.add(new String[] { "-c", "Em" }); argsList.add(new String[] { "-c", "F" });
-		 * argsList.add(new String[] { "-c", "Fm" }); argsList.add(new String[] { "-c", "G" });
-		 * argsList.add(new String[] { "-c", "Gm" });
-		 * 
-		 * ChordGenerator chordGenerator = new ChordGenerator(); for (String[] strings : argsList) {
-		 * 
-		 * chordGenerator.processArgs(strings); }
-		 */
-		new ChordGenerator().processArgs(args);
+		ChordGenerator.processArgs(args);
 	}
 
-	private void processArgs(String[] args) {
+	private static void processArgs(String[] args) {
 
-		Logger.debug(this, format("Parsing %d received arguments: %s", args.length, Arrays.toString(args)));
+		Logger.debug(ChordGenerator.class, format("Parsing %d received arguments: %s", args.length, Arrays
+				.toString(args)));
 
 		if (args.length == 0) {
-			Logger.debug(this, "No arguments were provided. Showing help.");
+			Logger.debug(ChordGenerator.class, "No arguments were provided. Showing help.");
 			new HelpCommand().execute();
 			System.exit(0);
 		}
