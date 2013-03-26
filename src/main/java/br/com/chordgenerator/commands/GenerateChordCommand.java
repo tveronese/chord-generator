@@ -38,12 +38,12 @@ public class GenerateChordCommand extends Command {
 		try {
 			Set<PositionalNotation> pns = ChordGeneratorFacade
 					.generateChordPositionalNotations(new StringInstrument(), chord);
-			System.out.format("Generated positional notation for chord \"%s\":\n", chord);
+			System.out.format("Generated positional notation for chord \"%s\":%n", chord);
 
 			int i = 0;
 			for (PositionalNotation positionalNotation : pns) {
 				i++;
-				System.out.format("Positional notation %d:\n", i);
+				System.out.format("Positional notation %d:%n", i);
 				System.out.print(positionalNotation);
 				System.out.println();
 			}
