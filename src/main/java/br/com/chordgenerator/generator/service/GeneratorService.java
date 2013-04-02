@@ -16,7 +16,7 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class GeneratorService {
 
-	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G]#?)(m?)");
+	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G][#,b]?)(m?)");
 
 	private static final String MINOR_CHORD_MODIFIER = "m";
 

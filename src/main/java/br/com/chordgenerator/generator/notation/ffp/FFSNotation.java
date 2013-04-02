@@ -1,5 +1,7 @@
 package br.com.chordgenerator.generator.notation.ffp;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,6 +26,31 @@ public class FFSNotation extends PositionalNotation {
 	public void setPositions(Set<FingerFretPosition> positions) {
 
 		this.positions = positions;
+	}
+
+	public int getMinimumFret(boolean ignoreFretZero) {
+
+		int minFret = 100;
+		for (FingerFretPosition ffp : this.getPositions()) {
+
+			Integer fret = ffp.getFret();
+			boolean fretZero = fret == 0;
+			if (!ignoreFretZero || !fretZero) {
+				minFret = Math.min(minFret, fret);
+			}
+		}
+
+		return minFret;
+	}
+
+	public int getMaximumFret() {
+
+		int maxFret = 0;
+		for (FingerFretPosition ffp : this.getPositions()) {
+			maxFret = Math.max(maxFret, ffp.getFret());
+		}
+
+		return maxFret;
 	}
 
 	@Override
@@ -79,34 +106,23 @@ public class FFSNotation extends PositionalNotation {
 
 		FFSNotation other = (FFSNotation) o;
 
-		int fretSum = 0;
-		int minFret = 100;
-		int maxFret = 0;
-		for (FingerFretPosition ffp : this.getPositions()) {
-			Integer fret = ffp.getFret();
-			fretSum += fret;
-			minFret = Math.min(minFret, fret);
-			maxFret = Math.max(maxFret, fret);
+		int minimumFret = this.getMinimumFret(false);
+		int minimumFretOther = other.getMinimumFret(false);
+		if (minimumFret != minimumFretOther) {
+			return minimumFret - minimumFretOther;
 		}
 
-		int fretSumOther = 0;
-		int minFretOther = 100;
-		int maxFretOther = 0;
-		for (FingerFretPosition ffp : other.getPositions()) {
-			Integer fret = ffp.getFret();
-			fretSumOther += fret;
-			minFretOther = Math.min(minFretOther, fret);
-			maxFretOther = Math.max(maxFretOther, fret);
-		}
-
-		if (minFret != minFretOther) {
-			return minFret - minFretOther;
-		}
-
-		int thisDistance = maxFret - minFret;
-		int otherDistance = maxFretOther - minFretOther;
+		int thisDistance = this.getMaximumFret() - minimumFret;
+		int otherDistance = other.getMaximumFret() - minimumFretOther;
 		if (thisDistance != otherDistance) {
 			return thisDistance - otherDistance;
+		}
+
+		if (this.hasBarreFret()) {
+			return -1;
+		}
+		else if (other.hasBarreFret()) {
+			return 1;
 		}
 
 		int thisStrings = this.getPositions().size();
@@ -115,7 +131,49 @@ public class FFSNotation extends PositionalNotation {
 			return thisStrings - otherStrings;
 		}
 
-		return fretSum - fretSumOther;
+		return 0;
+	}
+
+	private boolean hasBarreFret() {
+
+		for (FingerFretPosition ffp : getPositions()) {
+
+			if (ffp instanceof FingerBarreFret) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public int getNumberOfFingersNeeded() {
+
+		int fingersNeeded = 0;
+		for (FingerFretPosition ffp : this.getPositions()) {
+			if (ffp.getFret() != 0) {
+				fingersNeeded++;
+			}
+		}
+
+		return fingersNeeded;
+	}
+
+	public List<FingerFretString> getPositionsAtFret(Integer minFret) {
+
+		List<FingerFretString> positions = new ArrayList<FingerFretString>();
+		for (FingerFretPosition ffp : this.getPositions()) {
+
+			if (!(ffp instanceof FingerFretString)) {
+				continue;
+			}
+
+			FingerFretString ffs = (FingerFretString) ffp;
+			if (ffs.getFret().equals(minFret)) {
+				positions.add(ffs);
+			}
+		}
+
+		return positions;
 	}
 
 }
