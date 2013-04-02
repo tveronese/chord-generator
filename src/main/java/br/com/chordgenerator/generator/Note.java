@@ -2,40 +2,48 @@ package br.com.chordgenerator.generator;
 
 public enum Note {
 
-	C("C"),
+	C("C", null),
 
-	C_sharp("C#"),
+	C_sharp("C#", "Db"),
 
-	D("D"),
+	D("D", null),
 
-	D_sharp("D#"),
+	D_sharp("D#", "Eb"),
 
-	E("E"),
+	E("E", "Fb"),
 
-	F("F"),
+	F("F", null),
 
-	F_sharp("F#"),
+	F_sharp("F#", "Gb"),
 
-	G("G"),
+	G("G", null),
 
-	G_sharp("G#"),
+	G_sharp("G#", "Ab"),
 
-	A("A"),
+	A("A", null),
 
-	A_sharp("A#"),
+	A_sharp("A#", "Bb"),
 
-	B("B");
+	B("B", "Cb");
 
 	private String representation;
 
-	private Note(String representation) {
+	private String alternateRepresentation;
+
+	private Note(String representation, String alternateRepresentation) {
 
 		this.representation = representation;
+		this.alternateRepresentation = alternateRepresentation;
 	}
 
 	public String getRepresentation() {
 
 		return representation;
+	}
+
+	public String getAlternateRepresentation() {
+
+		return alternateRepresentation;
 	}
 
 	public Note getRespectiveNote(int semitonesOffset) {
@@ -49,6 +57,10 @@ public enum Note {
 
 		for (Note note : Note.values()) {
 			if (note.getRepresentation().equals(representation)) {
+				return note;
+			}
+			else if (note.getAlternateRepresentation() != null
+					&& note.getAlternateRepresentation().equals(representation)) {
 				return note;
 			}
 		}

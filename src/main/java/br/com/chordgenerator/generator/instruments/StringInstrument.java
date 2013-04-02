@@ -1,7 +1,6 @@
 package br.com.chordgenerator.generator.instruments;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
@@ -150,12 +149,13 @@ public class StringInstrument implements Instrument {
 
 	private Set<FFSNotation> findAndConvertBarreChords(Set<FFSNotation> possibleFFS) {
 
-		for (Iterator<FFSNotation> iterator = possibleFFS.iterator(); iterator.hasNext();) {
+		Set<FFSNotation> newFFS = new TreeSet<FFSNotation>();
 
-			FFSNotation ffsn = iterator.next();
+		for (FFSNotation ffsn : possibleFFS) {
 
-			int fingersNeeded = ffsn.getFingersNeeded();
+			int fingersNeeded = ffsn.getNumberOfFingersNeeded();
 			if (fingersNeeded <= HUMAN_MAXIMUM_FINGERS) {
+				newFFS.add(ffsn);
 				continue;
 			}
 
@@ -163,7 +163,6 @@ public class StringInstrument implements Instrument {
 			List<FingerFretString> barreFFPs = ffsn.getPositionsAtFret(minFret);
 
 			if (fingersNeeded - barreFFPs.size() + 1 > HUMAN_MAXIMUM_FINGERS) {
-				iterator.remove();
 				continue;
 			}
 
@@ -172,9 +171,25 @@ public class StringInstrument implements Instrument {
 
 			ffsn.getPositions().removeAll(barreFFPs);
 			ffsn.getPositions().add(barre);
+
+			if (checkFretSmallerThanBarre(ffsn, minFret)) {
+				newFFS.add(ffsn);
+			}
 		}
 
-		return possibleFFS;
+		return newFFS;
+	}
+
+	private boolean checkFretSmallerThanBarre(FFSNotation ffsn, Integer minFret) {
+
+		for (FingerFretPosition ffp : ffsn.getPositions()) {
+
+			if (!(ffp instanceof FingerBarreFret) && ffp.getFret() < minFret) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

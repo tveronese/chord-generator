@@ -118,6 +118,13 @@ public class FFSNotation extends PositionalNotation {
 			return thisDistance - otherDistance;
 		}
 
+		if (this.hasBarreFret()) {
+			return -1;
+		}
+		else if (other.hasBarreFret()) {
+			return 1;
+		}
+
 		int thisStrings = this.getPositions().size();
 		int otherStrings = other.getPositions().size();
 		if (thisStrings != otherStrings) {
@@ -127,7 +134,19 @@ public class FFSNotation extends PositionalNotation {
 		return 0;
 	}
 
-	public int getFingersNeeded() {
+	private boolean hasBarreFret() {
+
+		for (FingerFretPosition ffp : getPositions()) {
+
+			if (ffp instanceof FingerBarreFret) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	public int getNumberOfFingersNeeded() {
 
 		int fingersNeeded = 0;
 		for (FingerFretPosition ffp : this.getPositions()) {
