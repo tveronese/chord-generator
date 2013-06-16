@@ -4,7 +4,7 @@ import java.util.Set;
 
 import br.com.chordgenerator.facade.ChordGeneratorFacade;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
-import br.com.chordgenerator.generator.instruments.StringInstrument;
+import br.com.chordgenerator.generator.instruments.KeyInstrument;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.logger.Logger;
 
@@ -37,7 +37,7 @@ public class GenerateChordCommand extends Command {
 
 		try {
 			Set<PositionalNotation> pns = ChordGeneratorFacade
-					.generateChordPositionalNotations(new StringInstrument(), chord);
+					.generateChordPositionalNotations(new KeyInstrument(), chord);
 			System.out.format("Generated positional notation for chord \"%s\":%n", chord);
 
 			int i = 0;

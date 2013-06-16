@@ -1,18 +1,11 @@
 package br.com.chordgenerator.generator.instruments;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
-import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
-import br.com.chordgenerator.generator.notation.ffp.FingerBarreFret;
-import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
-import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
+import br.com.chordgenerator.generator.notation.ffp.*;
 import br.com.chordgenerator.logger.Logger;
 
 public class StringInstrument implements Instrument {
@@ -95,7 +88,7 @@ public class StringInstrument implements Instrument {
 				positions.addAll(ffsList);
 
 				FFSNotation ffsn = new FFSNotation(chord);
-				ffsn.setPositions(positions);
+				ffsn.getPositions().addAll(positions);
 				possibleFFS.add(ffsn);
 			}
 		}
