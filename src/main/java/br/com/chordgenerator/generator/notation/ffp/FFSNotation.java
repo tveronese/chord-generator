@@ -1,9 +1,6 @@
 package br.com.chordgenerator.generator.notation.ffp;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
@@ -21,11 +18,6 @@ public class FFSNotation extends PositionalNotation {
 	public Set<FingerFretPosition> getPositions() {
 
 		return positions;
-	}
-
-	public void setPositions(Set<FingerFretPosition> positions) {
-
-		this.positions = positions;
 	}
 
 	public int getMinimumFret(boolean ignoreFretZero) {

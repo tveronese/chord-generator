@@ -5,8 +5,20 @@ import java.util.Set;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 
-public interface Instrument {
+public abstract class Instrument {
 
-	Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
+	private InstrumentType type;
+
+	public Instrument(InstrumentType type) {
+
+		this.type = type;
+	}
+
+	public InstrumentType getType() {
+
+		return type;
+	}
+
+	public abstract Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
 
 }

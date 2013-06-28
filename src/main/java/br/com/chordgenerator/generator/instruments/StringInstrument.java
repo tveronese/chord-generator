@@ -1,35 +1,39 @@
 package br.com.chordgenerator.generator.instruments;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 import br.com.chordgenerator.generator.Note;
 import br.com.chordgenerator.generator.chords.Chord;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
-import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
-import br.com.chordgenerator.generator.notation.ffp.FingerBarreFret;
-import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
-import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
+import br.com.chordgenerator.generator.notation.ffp.*;
 import br.com.chordgenerator.logger.Logger;
 
-public class StringInstrument implements Instrument {
+public class StringInstrument extends Instrument {
 
 	private static final Integer HUMAN_MAXIMUM_FINGERS = 4;
 
 	private List<Note> pitches;
 
+	/**
+	 * Private constructor to define the correct type of instrument.
+	 * 
+	 * @param type Only KEY instrument type.
+	 */
+	private StringInstrument(InstrumentType type) {
+
+		super(type);
+	}
+
 	public StringInstrument() {
 
-		this.pitches = new ArrayList<Note>();
-		this.pitches.add(Note.E);
-		this.pitches.add(Note.B);
-		this.pitches.add(Note.G);
-		this.pitches.add(Note.D);
-		this.pitches.add(Note.A);
-		this.pitches.add(Note.E);
+		this(InstrumentType.SIX_STRINGS_GUITAR);
+		this.pitches = Arrays.asList(Note.E, Note.B, Note.G, Note.D, Note.A, Note.E);
+	}
+
+	public StringInstrument(List<Note> pitches) {
+
+		this();
+		this.pitches = pitches;
 	}
 
 	@Override
@@ -95,7 +99,7 @@ public class StringInstrument implements Instrument {
 				positions.addAll(ffsList);
 
 				FFSNotation ffsn = new FFSNotation(chord);
-				ffsn.setPositions(positions);
+				ffsn.getPositions().addAll(positions);
 				possibleFFS.add(ffsn);
 			}
 		}

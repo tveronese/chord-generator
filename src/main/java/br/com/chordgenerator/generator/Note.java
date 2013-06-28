@@ -53,6 +53,20 @@ public enum Note {
 		return values[newNotePosition];
 	}
 
+	public int getSemitonesOffset(Note other) {
+
+		if (this == other) {
+			return 0;
+		}
+
+		int offset = other.ordinal() - this.ordinal();
+		if (offset < 0) {
+			offset += Note.values().length;
+		}
+
+		return offset;
+	}
+
 	public static Note getNoteFromRepresentation(String representation) {
 
 		for (Note note : Note.values()) {

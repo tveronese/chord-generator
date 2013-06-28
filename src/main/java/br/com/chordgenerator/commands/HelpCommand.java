@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Configuration configuration) {
 
 		System.out.println("Chord generator help:");
 

@@ -1,28 +1,41 @@
 package br.com.chordgenerator.facade;
 
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.junit.Ignore;
 import org.junit.Test;
 
+import br.com.chordgenerator.generator.Note;
+import br.com.chordgenerator.generator.chords.Chord;
+import br.com.chordgenerator.generator.chords.MajorChord;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
+import br.com.chordgenerator.generator.notation.ffp.FFSNotation;
+import br.com.chordgenerator.generator.notation.ffp.FingerFretPosition;
+import br.com.chordgenerator.generator.notation.ffp.FingerFretString;
 
+@Ignore
 public class ChordGeneratorFacadeTest {
 
 	@Test
 	public void testGenerateChordA() throws ChordGenerationException {
 
-		/*
-		 * // A // Build model positional notation Set<FingerFretPosition> positions = new
-		 * TreeSet<FingerFretPosition>(); positions.add(new FingerFretString(1, 2, 1));
-		 * positions.add(new FingerFretString(1, 2, 2)); positions.add(new FingerFretString(1, 2,
-		 * 3));
-		 * 
-		 * Chord chord = new MajorChord(Note.A); FFSNotation modelPn = new FFSNotation(chord);
-		 * modelPn.setPositions(positions);
-		 * 
-		 * // Call application method for positional notation generation PositionalNotation pn =
-		 * ChordGeneratorFacade.generateChordPositionalNotations(new StringInstrument(), "A");
-		 * 
-		 * assertEquals(modelPn, pn);
-		 */
+		// A
+		// Build model positional notation
+		Set<FingerFretPosition> positions = new TreeSet<FingerFretPosition>();
+		positions.add(new FingerFretString(1, 2, 1));
+		positions.add(new FingerFretString(1, 2, 2));
+		positions.add(new FingerFretString(1, 2, 3));
+
+		Chord chord = new MajorChord(Note.A);
+		FFSNotation modelPn = new FFSNotation(chord);
+		modelPn.getPositions().addAll(positions);
+
+		// Call application method for positional notation generation
+		// PositionalNotation pn = ChordGeneratorFacade.generateChordPositionalNotations(new
+		// StringInstrument(), "A");
+		//
+		// assertEquals(modelPn, pn);
 	}
 
 	@Test

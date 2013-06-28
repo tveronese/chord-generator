@@ -12,6 +12,8 @@ import br.com.chordgenerator.generator.chords.MajorChord;
 import br.com.chordgenerator.generator.chords.MinorChord;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.Instrument;
+import br.com.chordgenerator.generator.instruments.InstrumentType;
+import br.com.chordgenerator.generator.instruments.builder.InstrumentBuilder;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class GeneratorService {
@@ -20,11 +22,11 @@ public class GeneratorService {
 
 	private static final String MINOR_CHORD_MODIFIER = "m";
 
-	public static Set<PositionalNotation> getPositionalNotations(Instrument instrument, String chordString)
+	public static Set<PositionalNotation> getPositionalNotations(InstrumentType type, String chordString)
 			throws ChordGenerationException {
 
 		Chord chord = generateChord(chordString);
-		return generateAllPositionalNotations(instrument, chord);
+		return generateAllPositionalNotations(type, chord);
 	}
 
 	private static Chord generateChord(String chordString) throws ChordGenerationException {
@@ -49,8 +51,9 @@ public class GeneratorService {
 				format("Chord generator NYI for: Note = %s; Modifiers = %s.", root.name(), modifiers));
 	}
 
-	private static Set<PositionalNotation> generateAllPositionalNotations(Instrument instrument, Chord chord) {
+	private static Set<PositionalNotation> generateAllPositionalNotations(InstrumentType type, Chord chord) {
 
+		Instrument instrument = InstrumentBuilder.buildDefault(type);
 		return instrument.generateAllPositionalNotations(chord);
 	}
 
