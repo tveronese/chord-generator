@@ -1,6 +1,5 @@
 package br.com.chordgenerator.commands;
 
-
 public abstract class Command {
 
 	private String[] arguments;
@@ -11,7 +10,7 @@ public abstract class Command {
 
 	public abstract int getNumberOfArgs();
 
-	public abstract void execute();
+	public abstract void execute(Configuration configuration);
 
 	public String[] getArguments() {
 

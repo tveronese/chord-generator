@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import br.com.chordgenerator.commands.Command;
-import br.com.chordgenerator.commands.GenerateChordCommand;
-import br.com.chordgenerator.commands.HelpCommand;
+import br.com.chordgenerator.commands.*;
 import br.com.chordgenerator.logger.Logger;
 
 public class CommandFactory {
@@ -19,8 +17,8 @@ public class CommandFactory {
 		try {
 			// Add commands to list according to their demanded order
 			cmdsList.add(HelpCommand.class.newInstance());
-			// cmdsList.add(SpecifyInstrumentCommand.class.newInstance());
-			cmdsList.add(GenerateChordCommand.class.newInstance());
+			cmdsList.add(SpecifyInstrumentCommand.class.newInstance());
+			cmdsList.add(SpecifyChordCommand.class.newInstance());
 		}
 		catch (InstantiationException e) {
 			Logger.error(CommandFactory.class, e, "Error while inserting commands.");
@@ -51,8 +49,7 @@ public class CommandFactory {
 
 			if (!foundCmd) {
 				String msg = String.format("Command \"%s\" does not exist.", arg);
-				IllegalArgumentException e = new IllegalArgumentException(msg);
-				throw e;
+				throw new IllegalArgumentException(msg);
 			}
 		}
 

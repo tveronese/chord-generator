@@ -1,6 +1,5 @@
 package br.com.chordgenerator.generator.instruments;
 
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -10,7 +9,22 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 import br.com.chordgenerator.generator.notation.nk.KeyNumberAndNote;
 import br.com.chordgenerator.generator.notation.nk.NumberedKeysNotation;
 
-public class KeyInstrument implements Instrument {
+public class KeyInstrument extends Instrument {
+
+	/**
+	 * Private constructor to define the correct type of instrument.
+	 * 
+	 * @param type Only KEY instrument type.
+	 */
+	private KeyInstrument(InstrumentType type) {
+
+		super(type);
+	}
+
+	public KeyInstrument() {
+
+		this(InstrumentType.PIANO);
+	}
 
 	@Override
 	public Set<PositionalNotation> generateAllPositionalNotations(Chord chord) {

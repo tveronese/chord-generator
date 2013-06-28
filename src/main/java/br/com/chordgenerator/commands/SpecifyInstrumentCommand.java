@@ -1,7 +1,6 @@
 package br.com.chordgenerator.commands;
 
-import java.util.Arrays;
-
+import br.com.chordgenerator.generator.instruments.InstrumentType;
 import br.com.chordgenerator.logger.Logger;
 
 public class SpecifyInstrumentCommand extends Command {
@@ -25,12 +24,12 @@ public class SpecifyInstrumentCommand extends Command {
 	}
 
 	@Override
-	public void execute() {
+	public void execute(Configuration configuration) {
 
-		Logger.debug(this, "Specifying instrument.");
-		System.out.println(Arrays.toString(getArguments()));
-
-		// TODO Auto-generated method stub
+		Logger.debug(this, "Specifying instrument...");
+		String typeName = getArguments()[0];
+		InstrumentType type = InstrumentType.valueOf(typeName);
+		configuration.setType(type);
+		Logger.debug(this, "Specified %s as instrument type.", type.name());
 	}
-
 }
