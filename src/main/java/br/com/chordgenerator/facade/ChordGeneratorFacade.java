@@ -15,24 +15,29 @@ import com.google.common.base.Strings;
 
 public class ChordGeneratorFacade {
 
-	/**
-	 * Generate positional notation for the type of instrument and chord.
-	 * 
-	 * @param type The desired type of instrument.
-	 * @param chord The chord to generate the positioning.
-	 * @return The positional notation.
-	 * @throws ChordGenerationException If an error happened while generating the chord.
-	 */
-	public static List<PositionalNotation> generateChordPositionalNotations(InstrumentType type, String chord)
-			throws ChordGenerationException {
+    protected ChordGeneratorFacade() {
 
-		chord = Strings.emptyToNull(chord);
+        // Hiding public constructor.
+    }
 
-		checkNotNull(type, "Instrument type cannot be null.");
-		checkNotNull(chord, "Chord cannot be null or empty.");
+    /**
+     * Generate positional notation for the type of instrument and chord.
+     * 
+     * @param type The desired type of instrument.
+     * @param chord The chord to generate the positioning.
+     * @return The positional notation.
+     * @throws ChordGenerationException If an error happened while generating the chord.
+     */
+    public static List<PositionalNotation> generateChordPositionalNotations(InstrumentType type, String chord)
+            throws ChordGenerationException {
 
-		Set<PositionalNotation> pns = GeneratorService.getPositionalNotations(type, chord);
-		return new ArrayList<PositionalNotation>(pns);
-	}
+        chord = Strings.emptyToNull(chord);
+
+        checkNotNull(type, "Instrument type cannot be null.");
+        checkNotNull(chord, "Chord cannot be null or empty.");
+
+        Set<PositionalNotation> pns = GeneratorService.getPositionalNotations(type, chord);
+        return new ArrayList<PositionalNotation>(pns);
+    }
 
 }

@@ -4,10 +4,10 @@ import br.com.chordgenerator.generator.Note;
 
 public class MinorChord extends Chord {
 
-	public MinorChord(Note root) {
+    public MinorChord(Note root) {
 
-		// 1-b3-5
-		super(root, TONE + SEMITONE, 2 * TONE);
-	}
+        // 1-b3-5
+        super(root, TONE + SEMITONE, 2 * TONE);
+    }
 
 }

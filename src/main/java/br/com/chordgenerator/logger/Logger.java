@@ -5,72 +5,77 @@ import static org.apache.log4j.Logger.getLogger;
 
 public class Logger {
 
-	// DEBUG level logging
+    protected Logger() {
 
-	private static void debug(Class<?> clazz, String message) {
+        // Hiding public constructor.
+    }
 
-		getLogger(clazz).debug(message);
-	}
+    // DEBUG level logging
 
-	public static void debug(Class<?> clazz, String message, Object... args) {
+    private static void debug(Class<?> clazz, String message) {
 
-		debug(clazz, format(message, args));
-	}
+        getLogger(clazz).debug(message);
+    }
 
-	public static void debug(Object caller, String message, Object... args) {
+    public static void debug(Class<?> clazz, String message, Object... args) {
 
-		debug(caller.getClass(), message, args);
-	}
+        debug(clazz, format(message, args));
+    }
 
-	// ERROR level logging
+    public static void debug(Object caller, String message, Object... args) {
 
-	private static void error(Class<?> clazz, Throwable t, String message) {
+        debug(caller.getClass(), message, args);
+    }
 
-		getLogger(clazz).error(message, t);
-	}
+    // ERROR level logging
 
-	public static void error(Class<?> clazz, Throwable t, String message, Object... args) {
+    private static void error(Class<?> clazz, Throwable t, String message) {
 
-		error(clazz, t, format(message, args));
-	}
+        getLogger(clazz).error(message, t);
+    }
 
-	public static void error(Object caller, Throwable t, String message, Object... args) {
+    public static void error(Class<?> clazz, Throwable t, String message, Object... args) {
 
-		error(caller.getClass(), t, message, args);
-	}
+        error(clazz, t, format(message, args));
+    }
 
-	// INFO level logging
+    public static void error(Object caller, Throwable t, String message, Object... args) {
 
-	private static void info(Class<?> clazz, String message) {
+        error(caller.getClass(), t, message, args);
+    }
 
-		getLogger(clazz).info(message);
-	}
+    // INFO level logging
 
-	public static void info(Class<?> clazz, String message, Object... args) {
+    private static void info(Class<?> clazz, String message) {
 
-		info(clazz, format(message, args));
-	}
+        getLogger(clazz).info(message);
+    }
 
-	public static void info(Object caller, String message, Object... args) {
+    public static void info(Class<?> clazz, String message, Object... args) {
 
-		info(caller.getClass(), message, args);
-	}
+        info(clazz, format(message, args));
+    }
 
-	// WARN level logging
+    public static void info(Object caller, String message, Object... args) {
 
-	public static void warn(Class<?> clazz, String message) {
+        info(caller.getClass(), message, args);
+    }
 
-		getLogger(clazz).warn(message);
-	}
+    // WARN level logging
 
-	public static void warn(Class<?> clazz, String message, Object... args) {
+    public static void warn(Class<?> clazz, String message) {
 
-		warn(clazz, format(message, args));
-	}
+        getLogger(clazz).warn(message);
+    }
 
-	public static void warn(Object caller, String message, Object... args) {
+    public static void warn(Class<?> clazz, String message, Object... args) {
 
-		warn(caller.getClass(), message, args);
-	}
+        warn(clazz, format(message, args));
+    }
+
+    public static void warn(Object caller, String message, Object... args) {
+
+        warn(caller.getClass(), message, args);
+    }
 
 }

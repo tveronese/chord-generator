@@ -18,43 +18,48 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public class GeneratorService {
 
-	private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G][#,b]?)(m?)");
+    protected GeneratorService() {
 
-	private static final String MINOR_CHORD_MODIFIER = "m";
+        // Hiding public constructor.
+    }
 
-	public static Set<PositionalNotation> getPositionalNotations(InstrumentType type, String chordString)
-			throws ChordGenerationException {
+    private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G][#,b]?)(m?)");
 
-		Chord chord = generateChord(chordString);
-		return generateAllPositionalNotations(type, chord);
-	}
+    private static final String MINOR_CHORD_MODIFIER = "m";
 
-	private static Chord generateChord(String chordString) throws ChordGenerationException {
+    public static Set<PositionalNotation> getPositionalNotations(InstrumentType type, String chordString)
+            throws ChordGenerationException {
 
-		Matcher matcher = NOTE_PATTERN.matcher(chordString);
-		if (!matcher.matches()) {
-			throw new ChordGenerationException(format("No chord generator implemented for: %s.", chordString));
-		}
+        Chord chord = generateChord(chordString);
+        return generateAllPositionalNotations(type, chord);
+    }
 
-		Note root = Note.getNoteFromRepresentation(matcher.group(1));
-		String modifiers = matcher.group(2);
+    private static Chord generateChord(String chordString) throws ChordGenerationException {
 
-		if (modifiers == null || modifiers.isEmpty()) {
-			return new MajorChord(root);
-		}
+        Matcher matcher = NOTE_PATTERN.matcher(chordString);
+        if (!matcher.matches()) {
+            throw new ChordGenerationException(format("No chord generator implemented for: %s.", chordString));
+        }
 
-		if (modifiers.equals(MINOR_CHORD_MODIFIER)) {
-			return new MinorChord(root);
-		}
+        Note root = Note.getNoteFromRepresentation(matcher.group(1));
+        String modifiers = matcher.group(2);
 
-		throw new ChordGenerationException(
-				format("Chord generator NYI for: Note = %s; Modifiers = %s.", root.name(), modifiers));
-	}
+        if (modifiers == null || modifiers.isEmpty()) {
+            return new MajorChord(root);
+        }
 
-	private static Set<PositionalNotation> generateAllPositionalNotations(InstrumentType type, Chord chord) {
+        if (modifiers.equals(MINOR_CHORD_MODIFIER)) {
+            return new MinorChord(root);
+        }
 
-		Instrument instrument = InstrumentBuilder.buildDefault(type);
-		return instrument.generateAllPositionalNotations(chord);
-	}
+        throw new ChordGenerationException(
+                format("Chord generator NYI for: Note = %s; Modifiers = %s.", root.name(), modifiers));
+    }
+
+    private static Set<PositionalNotation> generateAllPositionalNotations(InstrumentType type, Chord chord) {
+
+        Instrument instrument = InstrumentBuilder.buildDefault(type);
+        return instrument.generateAllPositionalNotations(chord);
+    }
 
 }

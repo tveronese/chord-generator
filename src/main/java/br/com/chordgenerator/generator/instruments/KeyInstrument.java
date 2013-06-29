@@ -11,44 +11,44 @@ import br.com.chordgenerator.generator.notation.nk.NumberedKeysNotation;
 
 public class KeyInstrument extends Instrument {
 
-	/**
-	 * Private constructor to define the correct type of instrument.
-	 * 
-	 * @param type Only KEY instrument type.
-	 */
-	private KeyInstrument(InstrumentType type) {
+    /**
+     * Private constructor to define the correct type of instrument.
+     * 
+     * @param type Only KEY instrument type.
+     */
+    private KeyInstrument(InstrumentType type) {
 
-		super(type);
-	}
+        super(type);
+    }
 
-	public KeyInstrument() {
+    public KeyInstrument() {
 
-		this(InstrumentType.PIANO);
-	}
+        this(InstrumentType.PIANO);
+    }
 
-	@Override
-	public Set<PositionalNotation> generateAllPositionalNotations(Chord chord) {
+    @Override
+    public Set<PositionalNotation> generateAllPositionalNotations(Chord chord) {
 
-		Note firstNote = Note.C;
-		NumberedKeysNotation notation = new NumberedKeysNotation(chord);
+        Note firstNote = Note.C;
+        NumberedKeysNotation notation = new NumberedKeysNotation(chord);
 
-		Note root = chord.getRoot();
-		int rootOffset = firstNote.getSemitonesOffset(root);
-		notation.getKeys().add(new KeyNumberAndNote(rootOffset, root));
+        Note root = chord.getRoot();
+        int rootOffset = firstNote.getSemitonesOffset(root);
+        notation.getKeys().add(new KeyNumberAndNote(rootOffset, root));
 
-		for (Note note : chord.getNotes()) {
+        for (Note note : chord.getNotes()) {
 
-			if (note == root) {
-				continue;
-			}
+            if (note == root) {
+                continue;
+            }
 
-			int noteOffset = root.getSemitonesOffset(note);
-			notation.getKeys().add(new KeyNumberAndNote(rootOffset + noteOffset, note));
-		}
+            int noteOffset = root.getSemitonesOffset(note);
+            notation.getKeys().add(new KeyNumberAndNote(rootOffset + noteOffset, note));
+        }
 
-		Set<PositionalNotation> notations = new TreeSet<PositionalNotation>();
-		notations.add(notation);
-		return notations;
-	}
+        Set<PositionalNotation> notations = new TreeSet<PositionalNotation>();
+        notations.add(notation);
+        return notations;
+    }
 
 }

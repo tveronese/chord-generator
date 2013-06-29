@@ -4,27 +4,32 @@ import br.com.chordgenerator.generator.instruments.*;
 
 public class InstrumentBuilder {
 
-	public static Instrument buildDefault(InstrumentType type) {
+    protected InstrumentBuilder() {
 
-		switch (type) {
-			case PIANO:
-				return buildDefaultKeyInstrument();
+        // Hiding public constructor.
+    }
 
-			case SIX_STRINGS_GUITAR:
-				return buildDefaultStringInstrument();
-		}
+    public static Instrument buildDefault(InstrumentType type) {
 
-		throw new IllegalStateException("Builder not implemented for type " + type.name());
-	}
+        switch (type) {
+            case PIANO:
+                return buildDefaultKeyInstrument();
 
-	public static StringInstrument buildDefaultStringInstrument() {
+            case SIX_STRINGS_GUITAR:
+                return buildDefaultStringInstrument();
+        }
 
-		return new StringInstrument();
-	}
+        throw new IllegalStateException("Builder not implemented for type " + type.name());
+    }
 
-	public static KeyInstrument buildDefaultKeyInstrument() {
+    public static StringInstrument buildDefaultStringInstrument() {
 
-		return new KeyInstrument();
-	}
+        return new StringInstrument();
+    }
+
+    public static KeyInstrument buildDefaultKeyInstrument() {
+
+        return new KeyInstrument();
+    }
 
 }

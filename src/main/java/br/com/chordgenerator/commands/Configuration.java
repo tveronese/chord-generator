@@ -4,28 +4,28 @@ import br.com.chordgenerator.generator.instruments.InstrumentType;
 
 public class Configuration {
 
-	private InstrumentType type;
+    private InstrumentType type;
 
-	private String chord;
+    private String chord;
 
-	public InstrumentType getType() {
+    public InstrumentType getType() {
 
-		return type;
-	}
+        return type;
+    }
 
-	public void setType(InstrumentType type) {
+    public void setType(InstrumentType type) {
 
-		this.type = type;
-	}
+        this.type = type;
+    }
 
-	public String getChord() {
+    public String getChord() {
 
-		return chord;
-	}
+        return chord;
+    }
 
-	public void setChord(String chord) {
+    public void setChord(String chord) {
 
-		this.chord = chord;
-	}
+        this.chord = chord;
+    }
 
 }

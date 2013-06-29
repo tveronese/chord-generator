@@ -7,52 +7,52 @@ import java.util.List;
 
 public class FingerBarreFret extends FingerFretPosition {
 
-	private List<FingerFretString> replaced;
+    private List<FingerFretString> replaced;
 
-	private Integer lastString;
+    private Integer lastString;
 
-	public FingerBarreFret(Integer finger, Integer fret) {
+    public FingerBarreFret(Integer finger, Integer fret) {
 
-		super(finger, fret);
-		this.replaced = new ArrayList<FingerFretString>();
-	}
+        super(finger, fret);
+        this.replaced = new ArrayList<FingerFretString>();
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
 
-		return format("Finger: %d; Barre fret: %d; Last string: %d", getFinger(), getFret(), getLastString() + 1);
-	}
+        return format("Finger: %d; Barre fret: %d; Last string: %d", getFinger(), getFret(), getLastString() + 1);
+    }
 
-	public List<FingerFretString> getReplaced() {
+    public List<FingerFretString> getReplaced() {
 
-		return replaced;
-	}
+        return replaced;
+    }
 
-	public Integer getLastString() {
+    public Integer getLastString() {
 
-		return lastString;
-	}
+        return lastString;
+    }
 
-	public void addReplacedPositions(List<FingerFretString> list) {
+    public void addReplacedPositions(List<FingerFretString> list) {
 
-		int maxString = 0;
-		for (FingerFretString ffp : list) {
+        int maxString = 0;
+        for (FingerFretString ffp : list) {
 
-			maxString = Math.max(maxString, ffp.getString());
-		}
+            maxString = Math.max(maxString, ffp.getString());
+        }
 
-		this.lastString = maxString;
-		this.replaced.addAll(list);
-	}
+        this.lastString = maxString;
+        this.replaced.addAll(list);
+    }
 
-	@Override
-	public int compareTo(FingerFretPosition other) {
+    @Override
+    public int compareTo(FingerFretPosition other) {
 
-		if (other instanceof FingerFretString) {
-			return -1;
-		}
+        if (other instanceof FingerFretString) {
+            return -1;
+        }
 
-		return 1;
-	}
+        return 1;
+    }
 
 }

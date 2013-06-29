@@ -2,83 +2,83 @@ package br.com.chordgenerator.generator;
 
 public enum Note {
 
-	C("C", null),
+    C("C", null),
 
-	C_sharp("C#", "Db"),
+    C_SHARP("C#", "Db"),
 
-	D("D", null),
+    D("D", null),
 
-	D_sharp("D#", "Eb"),
+    D_SHARP("D#", "Eb"),
 
-	E("E", "Fb"),
+    E("E", "Fb"),
 
-	F("F", null),
+    F("F", null),
 
-	F_sharp("F#", "Gb"),
+    F_SHARP("F#", "Gb"),
 
-	G("G", null),
+    G("G", null),
 
-	G_sharp("G#", "Ab"),
+    G_SHARP("G#", "Ab"),
 
-	A("A", null),
+    A("A", null),
 
-	A_sharp("A#", "Bb"),
+    A_SHARP("A#", "Bb"),
 
-	B("B", "Cb");
+    B("B", "Cb");
 
-	private String representation;
+    private String representation;
 
-	private String alternateRepresentation;
+    private String alternateRepresentation;
 
-	private Note(String representation, String alternateRepresentation) {
+    private Note(String representation, String alternateRepresentation) {
 
-		this.representation = representation;
-		this.alternateRepresentation = alternateRepresentation;
-	}
+        this.representation = representation;
+        this.alternateRepresentation = alternateRepresentation;
+    }
 
-	public String getRepresentation() {
+    public String getRepresentation() {
 
-		return representation;
-	}
+        return representation;
+    }
 
-	public String getAlternateRepresentation() {
+    public String getAlternateRepresentation() {
 
-		return alternateRepresentation;
-	}
+        return alternateRepresentation;
+    }
 
-	public Note getRespectiveNote(int semitonesOffset) {
+    public Note getRespectiveNote(int semitonesOffset) {
 
-		Note[] values = Note.values();
-		int newNotePosition = (this.ordinal() + semitonesOffset) % values.length;
-		return values[newNotePosition];
-	}
+        Note[] values = Note.values();
+        int newNotePosition = (this.ordinal() + semitonesOffset) % values.length;
+        return values[newNotePosition];
+    }
 
-	public int getSemitonesOffset(Note other) {
+    public int getSemitonesOffset(Note other) {
 
-		if (this == other) {
-			return 0;
-		}
+        if (this == other) {
+            return 0;
+        }
 
-		int offset = other.ordinal() - this.ordinal();
-		if (offset < 0) {
-			offset += Note.values().length;
-		}
+        int offset = other.ordinal() - this.ordinal();
+        if (offset < 0) {
+            offset += Note.values().length;
+        }
 
-		return offset;
-	}
+        return offset;
+    }
 
-	public static Note getNoteFromRepresentation(String representation) {
+    public static Note getNoteFromRepresentation(String representation) {
 
-		for (Note note : Note.values()) {
-			if (note.getRepresentation().equals(representation)) {
-				return note;
-			}
-			else if (note.getAlternateRepresentation() != null
-					&& note.getAlternateRepresentation().equals(representation)) {
-				return note;
-			}
-		}
+        for (Note note : Note.values()) {
+            if (note.getRepresentation().equals(representation)) {
+                return note;
+            }
+            else if (note.getAlternateRepresentation() != null
+                    && note.getAlternateRepresentation().equals(representation)) {
+                return note;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 }

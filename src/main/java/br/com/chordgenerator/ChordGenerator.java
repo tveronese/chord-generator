@@ -17,62 +17,62 @@ import br.com.chordgenerator.logger.Logger;
 
 public class ChordGenerator {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		Logger.debug(ChordGenerator.class, "Initializing Chord Generator application...");
-		ChordGenerator generator = new ChordGenerator();
-		Configuration configuration = generator.processArgs(args);
-		generator.generateChord(configuration);
-	}
+        Logger.debug(ChordGenerator.class, "Initializing Chord Generator application...");
+        ChordGenerator generator = new ChordGenerator();
+        Configuration configuration = generator.processArgs(args);
+        generator.generateChord(configuration);
+    }
 
-	protected Configuration processArgs(String[] args) {
+    protected Configuration processArgs(String[] args) {
 
-		Logger.debug(ChordGenerator.class, format("Parsing %d received arguments: %s", args.length, Arrays
-				.toString(args)));
+        Logger.debug(ChordGenerator.class, format("Parsing %d received arguments: %s", args.length, Arrays
+                .toString(args)));
 
-		Configuration configuration = new Configuration();
-		if (args.length == 0) {
-			Logger.debug(ChordGenerator.class, "No arguments were provided. Showing help.");
-			new HelpCommand().execute(configuration);
-			System.exit(0);
-		}
+        Configuration configuration = new Configuration();
+        if (args.length == 0) {
+            Logger.debug(ChordGenerator.class, "No arguments were provided. Showing help.");
+            new HelpCommand().execute(configuration);
+            System.exit(0);
+        }
 
-		CommandFactory factory = new CommandFactory();
-		List<Command> commands = factory.getCommands(args);
+        CommandFactory factory = new CommandFactory();
+        List<Command> commands = factory.getCommands(args);
 
-		// Run commands
-		for (Command command : commands) {
-			command.execute(configuration);
-		}
+        // Run commands
+        for (Command command : commands) {
+            command.execute(configuration);
+        }
 
-		return configuration;
-	}
+        return configuration;
+    }
 
-	protected void generateChord(Configuration configuration) {
+    protected void generateChord(Configuration configuration) {
 
-		InstrumentType type = configuration.getType();
-		String chord = configuration.getChord();
+        InstrumentType type = configuration.getType();
+        String chord = configuration.getChord();
 
-		Logger.debug(this, "Generating chord \"%s\" positional notation.", chord);
+        Logger.debug(this, "Generating chord \"%s\" positional notation.", chord);
 
-		try {
-			List<PositionalNotation> pns = ChordGeneratorFacade.generateChordPositionalNotations(type, chord);
-			System.out.format("Generated %d positional notation(s) for chord \"%s\":%n", pns.size(), chord);
+        try {
+            List<PositionalNotation> pns = ChordGeneratorFacade.generateChordPositionalNotations(type, chord);
+            System.out.format("Generated %d positional notation(s) for chord \"%s\":%n", pns.size(), chord);
 
-			int i = 0;
-			for (PositionalNotation positionalNotation : pns) {
-				i++;
-				System.out.format("Positional notation %d:%n", i);
-				System.out.print(positionalNotation);
-				System.out.println();
-			}
-		}
-		catch (ChordGenerationException e) {
-			System.out.println(e.getMessage());
-			Logger.error(this, e, "Error generating chord.");
-		}
+            int i = 0;
+            for (PositionalNotation positionalNotation : pns) {
+                i++;
+                System.out.format("Positional notation %d:%n", i);
+                System.out.print(positionalNotation);
+                System.out.println();
+            }
+        }
+        catch (ChordGenerationException e) {
+            System.out.println(e.getMessage());
+            Logger.error(this, e, "Error generating chord.");
+        }
 
-		Logger.debug(this, "Chord notation generation ended.");
-	}
+        Logger.debug(this, "Chord notation generation ended.");
+    }
 
 }
