@@ -13,67 +13,67 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
  */
 public class NumberedKeysNotation extends PositionalNotation {
 
-	private Set<KeyNumberAndNote> keys;
+    private Set<KeyNumberAndNote> keys;
 
-	public NumberedKeysNotation(Chord chord) {
+    public NumberedKeysNotation(Chord chord) {
 
-		super(chord);
-		this.keys = new TreeSet<KeyNumberAndNote>();
-	}
+        super(chord);
+        this.keys = new TreeSet<KeyNumberAndNote>();
+    }
 
-	public Set<KeyNumberAndNote> getKeys() {
+    public Set<KeyNumberAndNote> getKeys() {
 
-		return this.keys;
-	}
+        return this.keys;
+    }
 
-	@Override
-	public int compareTo(PositionalNotation o) {
+    @Override
+    public int compareTo(PositionalNotation o) {
 
-		return 0;
-	}
+        return 0;
+    }
 
-	@Override
-	public int hashCode() {
+    @Override
+    public int hashCode() {
 
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((keys == null) ? 0 : keys.hashCode());
-		return result;
-	}
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((keys == null) ? 0 : keys.hashCode());
+        return result;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
 
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (!(obj instanceof NumberedKeysNotation)) {
-			return false;
-		}
-		NumberedKeysNotation other = (NumberedKeysNotation) obj;
-		if (keys == null) {
-			if (other.keys != null) {
-				return false;
-			}
-		}
-		else if (!keys.equals(other.keys)) {
-			return false;
-		}
-		return true;
-	}
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof NumberedKeysNotation)) {
+            return false;
+        }
+        NumberedKeysNotation other = (NumberedKeysNotation) obj;
+        if (keys == null) {
+            if (other.keys != null) {
+                return false;
+            }
+        }
+        else if (!keys.equals(other.keys)) {
+            return false;
+        }
+        return true;
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
 
-		StringBuilder sb = new StringBuilder();
-		for (KeyNumberAndNote knn : getKeys()) {
-			sb.append(knn + "\n");
-		}
+        StringBuilder sb = new StringBuilder();
+        for (KeyNumberAndNote knn : getKeys()) {
+            sb.append(knn + "\n");
+        }
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 
 }

@@ -7,18 +7,18 @@ import br.com.chordgenerator.generator.notation.PositionalNotation;
 
 public abstract class Instrument {
 
-	private InstrumentType type;
+    private InstrumentType type;
 
-	public Instrument(InstrumentType type) {
+    public Instrument(InstrumentType type) {
 
-		this.type = type;
-	}
+        this.type = type;
+    }
 
-	public InstrumentType getType() {
+    public InstrumentType getType() {
 
-		return type;
-	}
+        return type;
+    }
 
-	public abstract Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
+    public abstract Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
 
 }

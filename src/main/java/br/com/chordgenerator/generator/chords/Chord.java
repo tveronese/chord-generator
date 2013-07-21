@@ -7,53 +7,53 @@ import br.com.chordgenerator.generator.Note;
 
 public abstract class Chord {
 
-	protected static final Integer TONE = 2;
+    protected static final Integer TONE = 2;
 
-	protected static final Integer SEMITONE = 1;
+    protected static final Integer SEMITONE = 1;
 
-	private Note root;
+    private Note root;
 
-	private List<Note> notes;
+    private List<Note> notes;
 
-	public Chord(Note root, Integer... offsets) {
+    public Chord(Note root, Integer... offsets) {
 
-		this.root = root;
-		this.notes = new ArrayList<Note>();
-		this.notes.add(root);
+        this.root = root;
+        this.notes = new ArrayList<Note>();
+        this.notes.add(root);
 
-		Note currentNote = root;
-		for (Integer offset : offsets) {
+        Note currentNote = root;
+        for (Integer offset : offsets) {
 
-			currentNote = currentNote.getRespectiveNote(offset);
-			this.notes.add(currentNote);
-		}
-	}
+            currentNote = currentNote.getRespectiveNote(offset);
+            this.notes.add(currentNote);
+        }
+    }
 
-	public Chord(List<Note> notes) {
+    public Chord(List<Note> notes) {
 
-		this.notes = notes;
-	}
+        this.notes = notes;
+    }
 
-	public List<Note> getNotes() {
+    public List<Note> getNotes() {
 
-		return notes;
-	}
+        return notes;
+    }
 
-	public Note getRoot() {
+    public Note getRoot() {
 
-		return root;
-	}
+        return root;
+    }
 
-	@Override
-	public String toString() {
+    @Override
+    public String toString() {
 
-		StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
-		for (Note note : getNotes()) {
-			sb.append(note.getRepresentation() + "\t");
-		}
+        for (Note note : getNotes()) {
+            sb.append(note.getRepresentation() + "\t");
+        }
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 
 }

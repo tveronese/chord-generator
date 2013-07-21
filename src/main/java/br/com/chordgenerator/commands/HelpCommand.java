@@ -4,32 +4,32 @@ import br.com.chordgenerator.commands.factory.CommandFactory;
 
 public class HelpCommand extends Command {
 
-	@Override
-	public String getArgument() {
+    @Override
+    public String getArgument() {
 
-		return "h";
-	}
+        return "h";
+    }
 
-	@Override
-	public String getHelpString() {
+    @Override
+    public String getHelpString() {
 
-		return "-h		Shows this help.";
-	}
+        return "-h		Shows this help.";
+    }
 
-	@Override
-	public int getNumberOfArgs() {
+    @Override
+    public int getNumberOfArgs() {
 
-		return 0;
-	}
+        return 0;
+    }
 
-	@Override
-	public void execute(Configuration configuration) {
+    @Override
+    public void execute(Configuration configuration) {
 
-		System.out.println("Chord generator help:");
+        System.out.println("Chord generator help:");
 
-		for (Command cmd : CommandFactory.getCmdsList()) {
-			System.out.println(cmd.getHelpString());
-		}
-	}
+        for (Command cmd : CommandFactory.getCmdsList()) {
+            System.out.println(cmd.getHelpString());
+        }
+    }
 
 }

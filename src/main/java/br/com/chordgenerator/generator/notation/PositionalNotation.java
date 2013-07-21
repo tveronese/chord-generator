@@ -4,21 +4,21 @@ import br.com.chordgenerator.generator.chords.Chord;
 
 public abstract class PositionalNotation implements Comparable<PositionalNotation> {
 
-	private Chord chord;
+    private Chord chord;
 
-	public PositionalNotation(Chord chord) {
+    public PositionalNotation(Chord chord) {
 
-		this.chord = chord;
-	}
+        this.chord = chord;
+    }
 
-	public Chord getChord() {
+    public Chord getChord() {
 
-		return chord;
-	}
+        return chord;
+    }
 
-	public void setChord(Chord chord) {
+    public void setChord(Chord chord) {
 
-		this.chord = chord;
-	}
+        this.chord = chord;
+    }
 
 }

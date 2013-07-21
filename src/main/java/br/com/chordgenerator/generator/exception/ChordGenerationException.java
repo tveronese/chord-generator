@@ -2,16 +2,16 @@ package br.com.chordgenerator.generator.exception;
 
 public class ChordGenerationException extends Exception {
 
-	private static final long serialVersionUID = -2947852334719578636L;
+    private static final long serialVersionUID = -2947852334719578636L;
 
-	public ChordGenerationException() {
+    public ChordGenerationException() {
 
-		super();
-	}
+        super();
+    }
 
-	public ChordGenerationException(String message) {
+    public ChordGenerationException(String message) {
 
-		super(message);
-	}
+        super(message);
+    }
 
 }
