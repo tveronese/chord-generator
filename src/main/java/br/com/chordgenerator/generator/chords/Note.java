@@ -73,8 +73,8 @@ public enum Note {
             if (note.getRepresentation().equals(representation)) {
                 return note;
             }
-            else if (note.getAlternateRepresentation() != null
-                    && note.getAlternateRepresentation().equals(representation)) {
+
+            if (note.getAlternateRepresentation() != null && note.getAlternateRepresentation().equals(representation)) {
                 return note;
             }
         }

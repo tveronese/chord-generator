@@ -11,6 +11,8 @@ import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.Instrument;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 
+import com.google.common.base.Preconditions;
+
 public abstract class ChordGenerator<I extends Instrument> {
 
     private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G][#,b]?)(m?)");
@@ -32,6 +34,8 @@ public abstract class ChordGenerator<I extends Instrument> {
         }
 
         Note root = Note.getNoteFromRepresentation(matcher.group(1));
+        Preconditions.checkArgument(root != null, "Note not found for representation: %s.", matcher.group(1));
+
         String modifiers = matcher.group(2);
 
         if (modifiers == null || modifiers.isEmpty()) {
