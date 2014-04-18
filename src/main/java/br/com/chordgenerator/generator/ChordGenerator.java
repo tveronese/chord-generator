@@ -1,4 +1,4 @@
-package br.com.chordgenerator.generator.service;
+package br.com.chordgenerator.generator;
 
 import static java.lang.String.format;
 
@@ -6,35 +6,25 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import br.com.chordgenerator.generator.Note;
-import br.com.chordgenerator.generator.chords.Chord;
-import br.com.chordgenerator.generator.chords.MajorChord;
-import br.com.chordgenerator.generator.chords.MinorChord;
+import br.com.chordgenerator.generator.chords.*;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.Instrument;
-import br.com.chordgenerator.generator.instruments.InstrumentType;
-import br.com.chordgenerator.generator.instruments.builder.InstrumentBuilder;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
 
-public class GeneratorService {
-
-    protected GeneratorService() {
-
-        // Hiding public constructor.
-    }
+public abstract class ChordGenerator<I extends Instrument> {
 
     private static final Pattern NOTE_PATTERN = Pattern.compile("([A-G][#,b]?)(m?)");
 
     private static final String MINOR_CHORD_MODIFIER = "m";
 
-    public static Set<PositionalNotation> getPositionalNotations(InstrumentType type, String chordString)
-            throws ChordGenerationException {
+    I instrument;
 
-        Chord chord = generateChord(chordString);
-        return generateAllPositionalNotations(type, chord);
+    public ChordGenerator(I instrument) {
+
+        this.instrument = instrument;
     }
 
-    private static Chord generateChord(String chordString) throws ChordGenerationException {
+    public Chord generateChord(String chordString) throws ChordGenerationException {
 
         Matcher matcher = NOTE_PATTERN.matcher(chordString);
         if (!matcher.matches()) {
@@ -56,10 +46,11 @@ public class GeneratorService {
                 format("Chord generator NYI for: Note = %s; Modifiers = %s.", root.name(), modifiers));
     }
 
-    private static Set<PositionalNotation> generateAllPositionalNotations(InstrumentType type, Chord chord) {
+    public Set<PositionalNotation> generateAllPositionalNotations(String chordString) throws ChordGenerationException {
 
-        Instrument instrument = InstrumentBuilder.buildDefault(type);
-        return instrument.generateAllPositionalNotations(chord);
+        return this.generateAllPositionalNotations(this.generateChord(chordString));
     }
+
+    protected abstract Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
 
 }

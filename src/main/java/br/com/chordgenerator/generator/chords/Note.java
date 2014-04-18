@@ -1,4 +1,4 @@
-package br.com.chordgenerator.generator;
+package br.com.chordgenerator.generator.chords;
 
 public enum Note {
 

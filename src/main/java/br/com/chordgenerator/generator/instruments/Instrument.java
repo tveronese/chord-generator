@@ -1,11 +1,8 @@
 package br.com.chordgenerator.generator.instruments;
 
-import java.util.Set;
-
-import br.com.chordgenerator.generator.chords.Chord;
-import br.com.chordgenerator.generator.notation.PositionalNotation;
-
 public abstract class Instrument {
+
+    public static final Integer HUMAN_MAXIMUM_FINGERS = 4;
 
     private InstrumentType type;
 
@@ -18,7 +15,5 @@ public abstract class Instrument {
 
         return type;
     }
-
-    public abstract Set<PositionalNotation> generateAllPositionalNotations(Chord chord);
 
 }

@@ -1,6 +1,6 @@
 package br.com.chordgenerator.generator.notation.nk;
 
-import br.com.chordgenerator.generator.Note;
+import br.com.chordgenerator.generator.chords.Note;
 
 public class KeyNumberAndNote implements Comparable<KeyNumberAndNote> {
 

@@ -9,15 +9,15 @@ import java.util.Set;
 import br.com.chordgenerator.generator.exception.ChordGenerationException;
 import br.com.chordgenerator.generator.instruments.InstrumentType;
 import br.com.chordgenerator.generator.notation.PositionalNotation;
-import br.com.chordgenerator.generator.service.GeneratorService;
+import br.com.chordgenerator.service.GeneratorService;
 
 import com.google.common.base.Strings;
 
-public class ChordGeneratorFacade {
+public final class ChordGeneratorFacade {
 
-    protected ChordGeneratorFacade() {
+    private ChordGeneratorFacade() {
 
-        // Hiding public constructor.
+        throw new AssertionError();
     }
 
     /**
@@ -31,10 +31,8 @@ public class ChordGeneratorFacade {
     public static List<PositionalNotation> generateChordPositionalNotations(InstrumentType type, String chord)
             throws ChordGenerationException {
 
-        chord = Strings.emptyToNull(chord);
-
         checkNotNull(type, "Instrument type cannot be null.");
-        checkNotNull(chord, "Chord cannot be null or empty.");
+        checkNotNull(!Strings.isNullOrEmpty(chord), "Chord cannot be null or empty.");
 
         Set<PositionalNotation> pns = GeneratorService.getPositionalNotations(type, chord);
         return new ArrayList<PositionalNotation>(pns);

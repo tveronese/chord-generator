@@ -1,6 +1,5 @@
 package br.com.chordgenerator.generator.chords;
 
-import br.com.chordgenerator.generator.Note;
 
 public class MinorChord extends Chord {
 

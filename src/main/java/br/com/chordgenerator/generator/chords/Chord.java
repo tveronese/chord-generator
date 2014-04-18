@@ -3,13 +3,11 @@ package br.com.chordgenerator.generator.chords;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.chordgenerator.generator.Note;
-
 public abstract class Chord {
 
-    protected static final Integer TONE = 2;
+    static final Integer TONE = 2;
 
-    protected static final Integer SEMITONE = 1;
+    static final Integer SEMITONE = 1;
 
     private Note root;
 
@@ -50,7 +48,8 @@ public abstract class Chord {
         StringBuilder sb = new StringBuilder();
 
         for (Note note : getNotes()) {
-            sb.append(note.getRepresentation() + "\t");
+            sb.append(note.getRepresentation());
+            sb.append("\t");
         }
 
         return sb.toString();
