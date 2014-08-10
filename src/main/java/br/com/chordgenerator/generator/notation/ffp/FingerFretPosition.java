@@ -48,9 +48,6 @@ public abstract class FingerFretPosition implements Comparable<FingerFretPositio
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
         if (!(obj instanceof FingerFretPosition)) {
             return false;
         }

@@ -3,11 +3,14 @@ package br.com.chordgenerator.logger;
 import static java.lang.String.format;
 import static org.apache.log4j.Logger.getLogger;
 
-public class Logger {
+public final class Logger {
 
-    protected Logger() {
+    /**
+     * Hiding public constructor.
+     */
+    private Logger() {
 
-        // Hiding public constructor.
+        throw new AssertionError("Non-instantiable class.");
     }
 
     // DEBUG level logging

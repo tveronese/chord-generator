@@ -52,9 +52,6 @@ public class KeyNumberAndNote implements Comparable<KeyNumberAndNote> {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
         if (!(obj instanceof KeyNumberAndNote)) {
             return false;
         }

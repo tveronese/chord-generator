@@ -17,7 +17,7 @@ public final class ChordGeneratorFacade {
 
     private ChordGeneratorFacade() {
 
-        throw new AssertionError();
+        throw new AssertionError("Non-instantiable class.");
     }
 
     /**

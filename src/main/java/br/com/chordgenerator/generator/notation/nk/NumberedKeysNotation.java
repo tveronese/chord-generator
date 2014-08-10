@@ -47,9 +47,6 @@ public class NumberedKeysNotation extends PositionalNotation {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
-            return false;
-        }
         if (!(obj instanceof NumberedKeysNotation)) {
             return false;
         }
